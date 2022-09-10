@@ -5,13 +5,17 @@ using System.Linq;
 
 public class RhythmManager : MonoBehaviour
 {
-    public MusicTrack musicTrack;
-    public int beatsTillStart = 4;
+    public bool useIntro = true;
+    public MusicTrack musicTrackIntro;
+    public MusicTrack musicTrackMain;
     float timeOfLastBeat;
     public List<ISyncable> ObjsToSync = new List<ISyncable>();
     public static RhythmManager mainRM;
     float lastTime = 0;
     AudioSource audSource;
+    bool doingIntro = true;
+    MusicTrack currentTrack;
+    int beatsLeftInIntro;
     void Start()
     {
         mainRM = this;
@@ -20,8 +24,20 @@ public class RhythmManager : MonoBehaviour
         {
             ObjsToSync.Add(obj);
         }
+        if(useIntro == true)
+        {
+            currentTrack = musicTrackIntro;
+        }
+        else
+        {
+            currentTrack = musicTrackMain;
+            doingIntro = false;
+        }
         audSource = GetComponent<AudioSource>();
-        audSource.clip = musicTrack.song;
+        audSource.clip = currentTrack.song;
+        audSource.loop = true;
+        beatsLeftInIntro = (int)(musicTrackIntro.song.length/(1/(musicTrackIntro.BPM/60)));
+        timeOfLastBeat = -1/(currentTrack.BPM/60);
     }
     public void BeginPlaying()
     {
@@ -29,28 +45,46 @@ public class RhythmManager : MonoBehaviour
     }
     void Update()
     {
+        checkForBeat(currentTrack);
+    }
+    void checkForBeat(MusicTrack MT)
+    {
+        if(!audSource.isPlaying){return;};
         if(audSource.time < lastTime)
         {
-            timeOfLastBeat = -1/(musicTrack.BPM/60);
+            timeOfLastBeat = -1/(MT.BPM/60);
         }
-        if(audSource.time + musicTrack.offset - timeOfLastBeat >= 1/(musicTrack.BPM/60))
+        if(audSource.time + MT.offset - timeOfLastBeat >= 1/(MT.BPM/60))
         {
-            timeOfLastBeat += 1/(musicTrack.BPM/60);
+            timeOfLastBeat += 1/(MT.BPM/60);
             Beat();
         }
         lastTime = audSource.time;
     }
     void Beat()
     {
-        if(beatsTillStart > 1)
+        if(doingIntro)
         {
-            beatsTillStart--;
+            if(beatsLeftInIntro <= 0)
+            {
+                SwitchToMain();
+                StartCoroutine(DelayedBeat());
+            }
+            beatsLeftInIntro--;
             return;
         }
         foreach(ISyncable syncable in ObjsToSync)
         {
             syncable.OnSync();
         }
+    }
+    void SwitchToMain()
+    {
+        doingIntro = false;
+        currentTrack = musicTrackMain;
+        audSource.clip = musicTrackMain.song;
+        audSource.loop = true;
+        audSource.Play();
     }
     public void AddSyncable(ISyncable syncable)
     {
@@ -70,5 +104,10 @@ public class RhythmManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         ObjsToSync.Remove(syncable);
+    }
+    IEnumerator DelayedBeat()
+    {
+        yield return new WaitForEndOfFrame();
+        Beat();
     }
 }

@@ -191,6 +191,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 128
       Script: {instanceID: 0}
+    - Class: 134
+      Script: {instanceID: 0}
     - Class: 135
       Script: {instanceID: 0}
     - Class: 157
@@ -910,7 +912,7 @@ ScriptsOnlyBuild:
     className: PlayerController
   - hash:
       serializedVersion: 2
-      Hash: a53cda5faeaa92b5220c8403ed3e65bd
+      Hash: 7ec64cedc09e637282d8ffc93fce5b3b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RhythmManager
