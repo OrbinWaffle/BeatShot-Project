@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+
+public class MusicTrack : ScriptableObject
+{
+    public AudioClip song;
+    public float BPM = 120;
+    public float offset = 0;
+    #if UNITY_EDITOR
+        [MenuItem("Assets/Create/Music Track")]
+        public static void CreateBlobTile()
+        {
+            string path = EditorUtility.SaveFilePanelInProject("Save Music Track", "New Music Track", "asset", "Save Music Track", "Assets");
+            if (path == "")
+                return;
+            AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<MusicTrack>(), path);
+        }
+    #endif
+}
