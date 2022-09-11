@@ -16,6 +16,7 @@ public class RhythmManager : MonoBehaviour
     bool doingIntro = true;
     MusicTrack currentTrack;
     int beatsLeftInIntro;
+    //string webText;
     void Start()
     {
         mainRM = this;
@@ -38,10 +39,12 @@ public class RhythmManager : MonoBehaviour
         audSource.loop = true;
         beatsLeftInIntro = (int)(musicTrackIntro.song.length/(1/(musicTrackIntro.BPM/60)));
         timeOfLastBeat = -1/(currentTrack.BPM/60);
+        //webText = "Note: This is the WebGL version of the game, so there may be some music sync issues. Switching tabs can cause some problems.";
     }
     public void BeginPlaying()
     {
         audSource.Play();
+        //webText = "";
     }
     void Update()
     {
@@ -85,6 +88,7 @@ public class RhythmManager : MonoBehaviour
         audSource.clip = musicTrackMain.song;
         audSource.loop = true;
         audSource.Play();
+        timeOfLastBeat = 0;
     }
     public void AddSyncable(ISyncable syncable)
     {
@@ -110,4 +114,10 @@ public class RhythmManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         Beat();
     }
+    /*void OnGUI()
+    {
+        var centeredStyle = GUI.skin.GetStyle("Label");
+        centeredStyle.alignment = TextAnchor.UpperCenter;
+        GUI.Label(new Rect(Screen.width/2-150, Screen.height/2-200, 300, 100), webText);
+    }*/
 }

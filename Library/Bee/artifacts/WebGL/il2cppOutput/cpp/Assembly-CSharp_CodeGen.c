@@ -85,63 +85,65 @@ extern void RhythmManager_AddSyncableCoroutine_mD8352A211A1F6E923104F18715F5AB49
 extern void RhythmManager_RemoveSyncableCoroutine_m9C191B3609FE15112DBEABEC1540E3C8BB37325C (void);
 // 0x00000025 System.Collections.IEnumerator RhythmManager::DelayedBeat()
 extern void RhythmManager_DelayedBeat_m4EC8F80E5836BE0B9BE227EF224000FB43ED4B49 (void);
-// 0x00000026 System.Void RhythmManager::.ctor()
+// 0x00000026 System.Void RhythmManager::OnGUI()
+extern void RhythmManager_OnGUI_m66764C7FA709D937135A6DD4D07BDC9C36051BC5 (void);
+// 0x00000027 System.Void RhythmManager::.ctor()
 extern void RhythmManager__ctor_mC6AB5821E631B490F0D7AC7116386CE05FD0F3E8 (void);
-// 0x00000027 System.Void RhythmManager/<AddSyncableCoroutine>d__19::.ctor(System.Int32)
-extern void U3CAddSyncableCoroutineU3Ed__19__ctor_m13E5F7B6FB4FEB53B01191D955E1124E4DB92B30 (void);
-// 0x00000028 System.Void RhythmManager/<AddSyncableCoroutine>d__19::System.IDisposable.Dispose()
-extern void U3CAddSyncableCoroutineU3Ed__19_System_IDisposable_Dispose_mDA48C3808E98625919DB0083ACC397916F674BCC (void);
-// 0x00000029 System.Boolean RhythmManager/<AddSyncableCoroutine>d__19::MoveNext()
-extern void U3CAddSyncableCoroutineU3Ed__19_MoveNext_m1EA4654D75BC500C7E63B87FA326A6F0602E5E2B (void);
-// 0x0000002A System.Object RhythmManager/<AddSyncableCoroutine>d__19::System.Collections.Generic.IEnumerator<System.Object>.get_Current()
-extern void U3CAddSyncableCoroutineU3Ed__19_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m8C29115A23889C7E10A7D64E686B034C7A70DBCD (void);
-// 0x0000002B System.Void RhythmManager/<AddSyncableCoroutine>d__19::System.Collections.IEnumerator.Reset()
-extern void U3CAddSyncableCoroutineU3Ed__19_System_Collections_IEnumerator_Reset_m524D1B65C3E8108497E8C65A7E7DA2F3560D245C (void);
-// 0x0000002C System.Object RhythmManager/<AddSyncableCoroutine>d__19::System.Collections.IEnumerator.get_Current()
-extern void U3CAddSyncableCoroutineU3Ed__19_System_Collections_IEnumerator_get_Current_m9D9B771CEB1C1029E885BBD75BFECEA629A924FB (void);
-// 0x0000002D System.Void RhythmManager/<RemoveSyncableCoroutine>d__20::.ctor(System.Int32)
-extern void U3CRemoveSyncableCoroutineU3Ed__20__ctor_mF180E67B9C40F70F1A81EA1E2B56AA611E60D959 (void);
-// 0x0000002E System.Void RhythmManager/<RemoveSyncableCoroutine>d__20::System.IDisposable.Dispose()
-extern void U3CRemoveSyncableCoroutineU3Ed__20_System_IDisposable_Dispose_m7C040474F53EBF83FF2FE709837B553A8E95060C (void);
-// 0x0000002F System.Boolean RhythmManager/<RemoveSyncableCoroutine>d__20::MoveNext()
-extern void U3CRemoveSyncableCoroutineU3Ed__20_MoveNext_mF25BCC054DB7F6DCAC3014D4142282D8552C90CD (void);
-// 0x00000030 System.Object RhythmManager/<RemoveSyncableCoroutine>d__20::System.Collections.Generic.IEnumerator<System.Object>.get_Current()
-extern void U3CRemoveSyncableCoroutineU3Ed__20_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m05DD20D1802B3F1B8054BE51D3C43EF4D2340C66 (void);
-// 0x00000031 System.Void RhythmManager/<RemoveSyncableCoroutine>d__20::System.Collections.IEnumerator.Reset()
-extern void U3CRemoveSyncableCoroutineU3Ed__20_System_Collections_IEnumerator_Reset_mF8877A0B099DA13BBC8F2868CD9B15EA33483164 (void);
-// 0x00000032 System.Object RhythmManager/<RemoveSyncableCoroutine>d__20::System.Collections.IEnumerator.get_Current()
-extern void U3CRemoveSyncableCoroutineU3Ed__20_System_Collections_IEnumerator_get_Current_m5C0316976CDF0F4A9CD00C799908CF65DFDEC363 (void);
-// 0x00000033 System.Void RhythmManager/<DelayedBeat>d__21::.ctor(System.Int32)
-extern void U3CDelayedBeatU3Ed__21__ctor_mD68EE4936F7D8D229C946AD78838C6AED54D2654 (void);
-// 0x00000034 System.Void RhythmManager/<DelayedBeat>d__21::System.IDisposable.Dispose()
-extern void U3CDelayedBeatU3Ed__21_System_IDisposable_Dispose_mBF8640F77F03D0C13AFC5897952961095AFE762B (void);
-// 0x00000035 System.Boolean RhythmManager/<DelayedBeat>d__21::MoveNext()
-extern void U3CDelayedBeatU3Ed__21_MoveNext_mE7636040960002AE6F9416D9EA4E9C780240A5BD (void);
-// 0x00000036 System.Object RhythmManager/<DelayedBeat>d__21::System.Collections.Generic.IEnumerator<System.Object>.get_Current()
-extern void U3CDelayedBeatU3Ed__21_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m23115861932520188E9F6310A563D3E7733B2E28 (void);
-// 0x00000037 System.Void RhythmManager/<DelayedBeat>d__21::System.Collections.IEnumerator.Reset()
-extern void U3CDelayedBeatU3Ed__21_System_Collections_IEnumerator_Reset_m7101C32CEBD3018A2FCBEDC3DC71E5C812ECA494 (void);
-// 0x00000038 System.Object RhythmManager/<DelayedBeat>d__21::System.Collections.IEnumerator.get_Current()
-extern void U3CDelayedBeatU3Ed__21_System_Collections_IEnumerator_get_Current_m188AD9CD17ED35C0D619CD7DA4A9D9AA42C5DC98 (void);
-// 0x00000039 System.Void ScenesManager::Restart()
+// 0x00000028 System.Void RhythmManager/<AddSyncableCoroutine>d__20::.ctor(System.Int32)
+extern void U3CAddSyncableCoroutineU3Ed__20__ctor_m39692D0BA01935457CA1A54D4CF03CE530388BB9 (void);
+// 0x00000029 System.Void RhythmManager/<AddSyncableCoroutine>d__20::System.IDisposable.Dispose()
+extern void U3CAddSyncableCoroutineU3Ed__20_System_IDisposable_Dispose_mD12357059459597E9320DB374612C375A8FA2301 (void);
+// 0x0000002A System.Boolean RhythmManager/<AddSyncableCoroutine>d__20::MoveNext()
+extern void U3CAddSyncableCoroutineU3Ed__20_MoveNext_m4344D47420428409777943A5C6BE4331893BE7DE (void);
+// 0x0000002B System.Object RhythmManager/<AddSyncableCoroutine>d__20::System.Collections.Generic.IEnumerator<System.Object>.get_Current()
+extern void U3CAddSyncableCoroutineU3Ed__20_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_mC2D0664CCD9D70D3FA002D03ECDB7A402E77D256 (void);
+// 0x0000002C System.Void RhythmManager/<AddSyncableCoroutine>d__20::System.Collections.IEnumerator.Reset()
+extern void U3CAddSyncableCoroutineU3Ed__20_System_Collections_IEnumerator_Reset_mE11F75BF5574E293A77403BA79EB008D12CAA76E (void);
+// 0x0000002D System.Object RhythmManager/<AddSyncableCoroutine>d__20::System.Collections.IEnumerator.get_Current()
+extern void U3CAddSyncableCoroutineU3Ed__20_System_Collections_IEnumerator_get_Current_mF41E2AB69D7AD3ADA2A97CD3D97F47B78C85FDB9 (void);
+// 0x0000002E System.Void RhythmManager/<RemoveSyncableCoroutine>d__21::.ctor(System.Int32)
+extern void U3CRemoveSyncableCoroutineU3Ed__21__ctor_mE684A34B1B6E470461826932F27665467D9F30D2 (void);
+// 0x0000002F System.Void RhythmManager/<RemoveSyncableCoroutine>d__21::System.IDisposable.Dispose()
+extern void U3CRemoveSyncableCoroutineU3Ed__21_System_IDisposable_Dispose_mD1B5B622FF486274D6CC479982750BA7010C75FB (void);
+// 0x00000030 System.Boolean RhythmManager/<RemoveSyncableCoroutine>d__21::MoveNext()
+extern void U3CRemoveSyncableCoroutineU3Ed__21_MoveNext_mB433534DB6B0A9A01AD5F2323B300B2CF68F3EAB (void);
+// 0x00000031 System.Object RhythmManager/<RemoveSyncableCoroutine>d__21::System.Collections.Generic.IEnumerator<System.Object>.get_Current()
+extern void U3CRemoveSyncableCoroutineU3Ed__21_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_mC21D539D7F95A8E28EEA04246219B4842CDC8CA3 (void);
+// 0x00000032 System.Void RhythmManager/<RemoveSyncableCoroutine>d__21::System.Collections.IEnumerator.Reset()
+extern void U3CRemoveSyncableCoroutineU3Ed__21_System_Collections_IEnumerator_Reset_m1C94CB8ED8017CB970632D211A23E34F66C5EEC3 (void);
+// 0x00000033 System.Object RhythmManager/<RemoveSyncableCoroutine>d__21::System.Collections.IEnumerator.get_Current()
+extern void U3CRemoveSyncableCoroutineU3Ed__21_System_Collections_IEnumerator_get_Current_m832F98B7DD6C2CCE68A968CE3312981554D64E8E (void);
+// 0x00000034 System.Void RhythmManager/<DelayedBeat>d__22::.ctor(System.Int32)
+extern void U3CDelayedBeatU3Ed__22__ctor_m5BC2D0A974EF8FF6713A85ADD04B0F4814675439 (void);
+// 0x00000035 System.Void RhythmManager/<DelayedBeat>d__22::System.IDisposable.Dispose()
+extern void U3CDelayedBeatU3Ed__22_System_IDisposable_Dispose_m5D71304FA594C128E6A51439FDE0642DB2EA355C (void);
+// 0x00000036 System.Boolean RhythmManager/<DelayedBeat>d__22::MoveNext()
+extern void U3CDelayedBeatU3Ed__22_MoveNext_m6AAD3C83315671A859976DD5227B710996CEECFD (void);
+// 0x00000037 System.Object RhythmManager/<DelayedBeat>d__22::System.Collections.Generic.IEnumerator<System.Object>.get_Current()
+extern void U3CDelayedBeatU3Ed__22_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m812ABD3E630E9B3A0B523E8BD92D1B78ED7E9FFF (void);
+// 0x00000038 System.Void RhythmManager/<DelayedBeat>d__22::System.Collections.IEnumerator.Reset()
+extern void U3CDelayedBeatU3Ed__22_System_Collections_IEnumerator_Reset_m358B9E342B43F0FF1E5F81D04B7FABC96003052E (void);
+// 0x00000039 System.Object RhythmManager/<DelayedBeat>d__22::System.Collections.IEnumerator.get_Current()
+extern void U3CDelayedBeatU3Ed__22_System_Collections_IEnumerator_get_Current_m759CCC162574636798EB50FD9CFB48AC1EAE6CE9 (void);
+// 0x0000003A System.Void ScenesManager::Restart()
 extern void ScenesManager_Restart_mE2DCA70C7FC3CEDEF8AB7FC3D312811C5631552F (void);
-// 0x0000003A System.Void ScenesManager::.ctor()
+// 0x0000003B System.Void ScenesManager::.ctor()
 extern void ScenesManager__ctor_m9012BEC3C25B1A916374854A9A99DC29C1D7A5D8 (void);
-// 0x0000003B System.Void SyncedAnimation::Awake()
+// 0x0000003C System.Void SyncedAnimation::Awake()
 extern void SyncedAnimation_Awake_m3D5C14AE04688ED520DDF4E049C32328B055147E (void);
-// 0x0000003C System.Void SyncedAnimation::OnSync()
+// 0x0000003D System.Void SyncedAnimation::OnSync()
 extern void SyncedAnimation_OnSync_m7C5923F3688C774526F6D01DF0E92BFA4594FC36 (void);
-// 0x0000003D System.Void SyncedAnimation::.ctor()
+// 0x0000003E System.Void SyncedAnimation::.ctor()
 extern void SyncedAnimation__ctor_mE254B0F7B86E228765FFB2B0DF3B3C4D1CBCB4DC (void);
-// 0x0000003E System.Void UIManager::OnSync()
+// 0x0000003F System.Void UIManager::OnSync()
 extern void UIManager_OnSync_mCEEE0C2898939682B75E8D5DA9CD6D000820C6E6 (void);
-// 0x0000003F System.Void UIManager::BeginPlaying()
+// 0x00000040 System.Void UIManager::BeginPlaying()
 extern void UIManager_BeginPlaying_m89D27F492C18875651B0484ED8C85BA56DE29C80 (void);
-// 0x00000040 System.Void UIManager::PlayerDied()
+// 0x00000041 System.Void UIManager::PlayerDied()
 extern void UIManager_PlayerDied_mAEB1B48FE4E0783FAD128BAAE241BDB133DE949C (void);
-// 0x00000041 System.Void UIManager::.ctor()
+// 0x00000042 System.Void UIManager::.ctor()
 extern void UIManager__ctor_mC9DC2B8984E76F424E73C1860AD4BD3DEBF6573F (void);
-static Il2CppMethodPointer s_methodPointers[65] = 
+static Il2CppMethodPointer s_methodPointers[66] = 
 {
 	NULL,
 	MusicTrack__ctor_m3065E4207CD7EAE0AC691B1CF0AC45FC02021395,
@@ -180,25 +182,26 @@ static Il2CppMethodPointer s_methodPointers[65] =
 	RhythmManager_AddSyncableCoroutine_mD8352A211A1F6E923104F18715F5AB4984D54C71,
 	RhythmManager_RemoveSyncableCoroutine_m9C191B3609FE15112DBEABEC1540E3C8BB37325C,
 	RhythmManager_DelayedBeat_m4EC8F80E5836BE0B9BE227EF224000FB43ED4B49,
+	RhythmManager_OnGUI_m66764C7FA709D937135A6DD4D07BDC9C36051BC5,
 	RhythmManager__ctor_mC6AB5821E631B490F0D7AC7116386CE05FD0F3E8,
-	U3CAddSyncableCoroutineU3Ed__19__ctor_m13E5F7B6FB4FEB53B01191D955E1124E4DB92B30,
-	U3CAddSyncableCoroutineU3Ed__19_System_IDisposable_Dispose_mDA48C3808E98625919DB0083ACC397916F674BCC,
-	U3CAddSyncableCoroutineU3Ed__19_MoveNext_m1EA4654D75BC500C7E63B87FA326A6F0602E5E2B,
-	U3CAddSyncableCoroutineU3Ed__19_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m8C29115A23889C7E10A7D64E686B034C7A70DBCD,
-	U3CAddSyncableCoroutineU3Ed__19_System_Collections_IEnumerator_Reset_m524D1B65C3E8108497E8C65A7E7DA2F3560D245C,
-	U3CAddSyncableCoroutineU3Ed__19_System_Collections_IEnumerator_get_Current_m9D9B771CEB1C1029E885BBD75BFECEA629A924FB,
-	U3CRemoveSyncableCoroutineU3Ed__20__ctor_mF180E67B9C40F70F1A81EA1E2B56AA611E60D959,
-	U3CRemoveSyncableCoroutineU3Ed__20_System_IDisposable_Dispose_m7C040474F53EBF83FF2FE709837B553A8E95060C,
-	U3CRemoveSyncableCoroutineU3Ed__20_MoveNext_mF25BCC054DB7F6DCAC3014D4142282D8552C90CD,
-	U3CRemoveSyncableCoroutineU3Ed__20_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m05DD20D1802B3F1B8054BE51D3C43EF4D2340C66,
-	U3CRemoveSyncableCoroutineU3Ed__20_System_Collections_IEnumerator_Reset_mF8877A0B099DA13BBC8F2868CD9B15EA33483164,
-	U3CRemoveSyncableCoroutineU3Ed__20_System_Collections_IEnumerator_get_Current_m5C0316976CDF0F4A9CD00C799908CF65DFDEC363,
-	U3CDelayedBeatU3Ed__21__ctor_mD68EE4936F7D8D229C946AD78838C6AED54D2654,
-	U3CDelayedBeatU3Ed__21_System_IDisposable_Dispose_mBF8640F77F03D0C13AFC5897952961095AFE762B,
-	U3CDelayedBeatU3Ed__21_MoveNext_mE7636040960002AE6F9416D9EA4E9C780240A5BD,
-	U3CDelayedBeatU3Ed__21_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m23115861932520188E9F6310A563D3E7733B2E28,
-	U3CDelayedBeatU3Ed__21_System_Collections_IEnumerator_Reset_m7101C32CEBD3018A2FCBEDC3DC71E5C812ECA494,
-	U3CDelayedBeatU3Ed__21_System_Collections_IEnumerator_get_Current_m188AD9CD17ED35C0D619CD7DA4A9D9AA42C5DC98,
+	U3CAddSyncableCoroutineU3Ed__20__ctor_m39692D0BA01935457CA1A54D4CF03CE530388BB9,
+	U3CAddSyncableCoroutineU3Ed__20_System_IDisposable_Dispose_mD12357059459597E9320DB374612C375A8FA2301,
+	U3CAddSyncableCoroutineU3Ed__20_MoveNext_m4344D47420428409777943A5C6BE4331893BE7DE,
+	U3CAddSyncableCoroutineU3Ed__20_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_mC2D0664CCD9D70D3FA002D03ECDB7A402E77D256,
+	U3CAddSyncableCoroutineU3Ed__20_System_Collections_IEnumerator_Reset_mE11F75BF5574E293A77403BA79EB008D12CAA76E,
+	U3CAddSyncableCoroutineU3Ed__20_System_Collections_IEnumerator_get_Current_mF41E2AB69D7AD3ADA2A97CD3D97F47B78C85FDB9,
+	U3CRemoveSyncableCoroutineU3Ed__21__ctor_mE684A34B1B6E470461826932F27665467D9F30D2,
+	U3CRemoveSyncableCoroutineU3Ed__21_System_IDisposable_Dispose_mD1B5B622FF486274D6CC479982750BA7010C75FB,
+	U3CRemoveSyncableCoroutineU3Ed__21_MoveNext_mB433534DB6B0A9A01AD5F2323B300B2CF68F3EAB,
+	U3CRemoveSyncableCoroutineU3Ed__21_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_mC21D539D7F95A8E28EEA04246219B4842CDC8CA3,
+	U3CRemoveSyncableCoroutineU3Ed__21_System_Collections_IEnumerator_Reset_m1C94CB8ED8017CB970632D211A23E34F66C5EEC3,
+	U3CRemoveSyncableCoroutineU3Ed__21_System_Collections_IEnumerator_get_Current_m832F98B7DD6C2CCE68A968CE3312981554D64E8E,
+	U3CDelayedBeatU3Ed__22__ctor_m5BC2D0A974EF8FF6713A85ADD04B0F4814675439,
+	U3CDelayedBeatU3Ed__22_System_IDisposable_Dispose_m5D71304FA594C128E6A51439FDE0642DB2EA355C,
+	U3CDelayedBeatU3Ed__22_MoveNext_m6AAD3C83315671A859976DD5227B710996CEECFD,
+	U3CDelayedBeatU3Ed__22_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m812ABD3E630E9B3A0B523E8BD92D1B78ED7E9FFF,
+	U3CDelayedBeatU3Ed__22_System_Collections_IEnumerator_Reset_m358B9E342B43F0FF1E5F81D04B7FABC96003052E,
+	U3CDelayedBeatU3Ed__22_System_Collections_IEnumerator_get_Current_m759CCC162574636798EB50FD9CFB48AC1EAE6CE9,
 	ScenesManager_Restart_mE2DCA70C7FC3CEDEF8AB7FC3D312811C5631552F,
 	ScenesManager__ctor_m9012BEC3C25B1A916374854A9A99DC29C1D7A5D8,
 	SyncedAnimation_Awake_m3D5C14AE04688ED520DDF4E049C32328B055147E,
@@ -209,7 +212,7 @@ static Il2CppMethodPointer s_methodPointers[65] =
 	UIManager_PlayerDied_mAEB1B48FE4E0783FAD128BAAE241BDB133DE949C,
 	UIManager__ctor_mC9DC2B8984E76F424E73C1860AD4BD3DEBF6573F,
 };
-static const int32_t s_InvokerIndices[65] = 
+static const int32_t s_InvokerIndices[66] = 
 {
 	0,
 	3927,
@@ -249,6 +252,7 @@ static const int32_t s_InvokerIndices[65] =
 	2824,
 	3844,
 	3927,
+	3927,
 	3173,
 	3927,
 	3783,
@@ -281,7 +285,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	65,
+	66,
 	s_methodPointers,
 	0,
 	NULL,

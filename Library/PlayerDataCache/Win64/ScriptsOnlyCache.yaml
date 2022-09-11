@@ -1195,4 +1195,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/joshl/Documents/Unity/Builds/BeatShot/BeatShot.exe
+  playerPath: C:/Users/joshl/Documents/Unity/Builds/BeatShotBuilds/BeatShot/BeatShot.exe
