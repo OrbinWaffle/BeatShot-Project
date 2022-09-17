@@ -1534,6 +1534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beatsPerShot: 2
+  manualControl: 0
   curs: {fileID: 364129025}
   isControlling: 1
 --- !u!4 &464707644
@@ -2103,7 +2104,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24618
+  m_Name: pb_Mesh24154
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2607,6 +2608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -2857,6 +2859,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotatorSpeed: 10
   recoil: 30
+  timeBetweenShots: 0.1
+  numOfShots: 1
+  spreadOfShots: 90
+  isInvincible: 0
   projectile: {fileID: 6499305638798856555, guid: 83a5e833af1a610449f1c102597d893b, type: 3}
   shotParticle: {fileID: 1569772984500554736, guid: c8dbeec0eac6ca843875574cc9a72e9c, type: 3}
   deathParticle: {fileID: 1569772984500554736, guid: 08d3a4d5c5f23574794ae1eff7a9fe7b, type: 3}
