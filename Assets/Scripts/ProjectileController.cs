@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour, ISyncable
 {
-    public float distance = 1;
-    public float snapSpeed = 1;
-    public int beatsAlive = 4;
-    public int beatsPerMove = 1;
-    public GameObject particle;
-    public LayerMask LM;
+    [SerializeField] private float distance = 1;
+    [SerializeField] private float snapSpeed = 1;
+    [SerializeField] private int beatsAlive = 4;
+    [SerializeField] private int beatsPerMove = 1;
+    [SerializeField] private GameObject particle;
+    [SerializeField] private LayerMask LM;
     float beatsLeft;
     float wallDist = 0.1f;
     float orgSnapSpeed;

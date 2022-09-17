@@ -7,9 +7,9 @@ public class UIManager : MonoBehaviour, ISyncable
 {
     int initialBeatDelay = 0;
     int beatsSurvived = 0;
-    public Text scoreText;
-    public GameObject startButton;
-    public GameObject gameOver;
+    [SerializeField] private Text scoreText;
+    [SerializeField] private GameObject startButton;
+    [SerializeField] private GameObject gameOver;
     bool playerIsAlive = true;
     public void OnSync()
     {

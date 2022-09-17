@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour, ISyncable
 {
-    public int beatsPerShot = 4;
-    public Transform curs;
+    [SerializeField] private int beatsPerShot = 4;
+    [SerializeField] private Transform curs;
     public bool isControlling = true;
     PlayerController PM;
     Plane Plane = new Plane(Vector3.up, 0);

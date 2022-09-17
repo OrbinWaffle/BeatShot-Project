@@ -5,11 +5,11 @@ using System.Linq;
 
 public class RhythmManager : MonoBehaviour
 {
-    public bool useIntro = true;
-    public MusicTrack musicTrackIntro;
-    public MusicTrack musicTrackMain;
+    [SerializeField] private bool useIntro = true;
+    [SerializeField] private MusicTrack musicTrackIntro;
+    [SerializeField] private MusicTrack musicTrackMain;
     float timeOfLastBeat;
-    public List<ISyncable> ObjsToSync = new List<ISyncable>();
+    private List<ISyncable> ObjsToSync = new List<ISyncable>();
     public static RhythmManager mainRM;
     float lastTime = 0;
     AudioSource audSource;

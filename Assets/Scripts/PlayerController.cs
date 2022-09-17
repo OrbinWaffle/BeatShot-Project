@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float rotatorSpeed = 0;
-    public float recoil = 1;
-    public GameObject projectile;
-    public GameObject shotParticle;
-    public GameObject deathParticle;
-    public Transform rotator;
-    public Transform firePoint;
-    public UIManager UIM;
+    [SerializeField] private float rotatorSpeed = 0;
+    [SerializeField] private float recoil = 1;
+    [SerializeField] private GameObject projectile;
+    [SerializeField] private GameObject shotParticle;
+    [SerializeField] private GameObject deathParticle;
+    [SerializeField] private Transform rotator;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private UIManager UIM;
     Rigidbody RB;
     void Start()
     {

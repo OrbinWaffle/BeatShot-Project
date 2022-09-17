@@ -5,9 +5,9 @@ using UnityEditor;
 
 public class MusicTrack : ScriptableObject
 {
-    public AudioClip song;
-    public float BPM = 120;
-    public float offset = 0;
+    [SerializeField] public AudioClip song;
+    [SerializeField] public float BPM = 120;
+    [SerializeField] public float offset = 0;
     #if UNITY_EDITOR
         [MenuItem("Assets/Create/Music Track")]
         public static void CreateBlobTile()
