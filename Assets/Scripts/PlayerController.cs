@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float rotatorSpeed = 0;
-    [SerializeField] private float recoil = 1;
+    [SerializeField] private float rotatorSpeed = 0f;
+    [SerializeField] private float recoil = 1f;
+    [SerializeField] private float timeBetweenShots = 0f;
+    [SerializeField] private int numOfShots = 1;
+    [SerializeField] private float spreadOfShots = 90f;
+    [SerializeField] private bool isInvincible = false;
     [SerializeField] private GameObject projectile;
     [SerializeField] private GameObject shotParticle;
     [SerializeField] private GameObject deathParticle;
     [SerializeField] private Transform rotator;
     [SerializeField] private Transform firePoint;
     [SerializeField] private UIManager UIM;
+    private float timeOfLastShot;
     Rigidbody RB;
     void Start()
     {
@@ -26,17 +31,27 @@ public class PlayerController : MonoBehaviour
     }
     public void Attack()
     {
+        if(Time.time < timeOfLastShot + timeBetweenShots){return;}
         RB.AddForce(-rotator.forward * recoil, ForceMode.Impulse);
-        GameObject proj = Instantiate(projectile, firePoint.position, rotator.rotation);
-        RhythmManager.mainRM.AddSyncable(proj.GetComponent<ProjectileController>());
-        RhythmManager.mainRM.AddSyncable(proj.GetComponent<SyncedAnimation>());
-        proj.GetComponent<ProjectileController>().OnSync();
-        proj.GetComponent<SyncedAnimation>().OnSync();
         Instantiate(shotParticle, firePoint.position, rotator.rotation);
+        for(int i = 0; i < numOfShots; i++)
+        {
+            float rotation = (-spreadOfShots/2) + (spreadOfShots/numOfShots) * (i + 1);
+            if(numOfShots == 1)
+            {
+                rotation = 0;
+            }
+            GameObject proj = Instantiate(projectile, firePoint.position, rotator.rotation * Quaternion.Euler(0, rotation, 0));
+            RhythmManager.mainRM.AddSyncable(proj.GetComponent<ProjectileController>());
+            RhythmManager.mainRM.AddSyncable(proj.GetComponent<SyncedAnimation>());
+            proj.GetComponent<ProjectileController>().OnSync();
+            proj.GetComponent<SyncedAnimation>().OnSync();
+        }
+        timeOfLastShot = Time.time;
     }
     void OnCollisionEnter(Collision other)
     {
-        if(other.collider.tag == "Projectile")
+        if(other.collider.tag == "Projectile" && !isInvincible)
         {
             UIM.PlayerDied();
             Instantiate(deathParticle, transform.position, Quaternion.identity);

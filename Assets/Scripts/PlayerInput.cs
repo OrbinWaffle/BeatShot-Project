@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour, ISyncable
 {
     [SerializeField] private int beatsPerShot = 4;
+    [SerializeField] private bool manualControl = false;
     [SerializeField] private Transform curs;
     public bool isControlling = true;
     PlayerController PM;
@@ -18,8 +19,7 @@ public class PlayerInput : MonoBehaviour, ISyncable
     void Update()
     {
         OnMouse();
-        //OnAttack();
-        //OnAttack();
+        OnAttack();
     }
     public void OnSync()
     {
@@ -27,7 +27,7 @@ public class PlayerInput : MonoBehaviour, ISyncable
         beat--;
         if(beat <= 0)
         {
-            PM.Attack();
+            if(!manualControl){PM.Attack();}
             beat = beatsPerShot;
         }
         /*if(Input.GetButtonDown("Fire1") || Input.GetButton("Fire1"))
@@ -48,7 +48,7 @@ public class PlayerInput : MonoBehaviour, ISyncable
     }
     void OnAttack()
     {
-        if(!isControlling){return;}
+        if(!isControlling || !manualControl){return;}
         if(Input.GetButton("Fire1"))
         {
             PM.Attack();
