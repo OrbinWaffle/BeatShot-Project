@@ -6,6 +6,7 @@ using System.Linq;
 public class RhythmManager : MonoBehaviour
 {
     [SerializeField] private bool useIntro = true;
+    [SerializeField] private bool startOnPlay = false;
     [SerializeField] private MusicTrack musicTrackIntro;
     [SerializeField] private MusicTrack musicTrackMain;
     float timeOfLastBeat;
@@ -39,6 +40,10 @@ public class RhythmManager : MonoBehaviour
         audSource.loop = true;
         beatsLeftInIntro = (int)(musicTrackIntro.song.length/(1/(musicTrackIntro.BPM/60)));
         timeOfLastBeat = -1/(currentTrack.BPM/60);
+        if(startOnPlay == true)
+        {
+            BeginPlaying();
+        }
         //webText = "Note: This is the WebGL version of the game, so there may be some music sync issues. Switching tabs can cause some problems.";
     }
     public void BeginPlaying()
