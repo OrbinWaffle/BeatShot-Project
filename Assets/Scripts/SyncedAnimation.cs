@@ -1,3 +1,6 @@
+
+//This helper script triggers events in an animator when a beat is called.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
