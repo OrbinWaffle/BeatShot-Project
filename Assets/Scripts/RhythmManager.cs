@@ -1,3 +1,6 @@
+
+//This script keeps track of the beats of the music, and syncs the whole game to it.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,13 +8,20 @@ using System.Linq;
 
 public class RhythmManager : MonoBehaviour
 {
+    [Tooltip("Whether or not this song has an intro.")]
     [SerializeField] private bool useIntro = true;
+    [Tooltip("Whether or not the song begins playing immediately when the game starts running.")]
     [SerializeField] private bool startOnPlay = false;
+    [Tooltip("Music track for the intro.")]
     [SerializeField] private MusicTrack musicTrackIntro;
+    [Tooltip("Main looping music track.")]
     [SerializeField] private MusicTrack musicTrackMain;
+    //Time that the last beat occured at.
     float timeOfLastBeat;
+    //A list of objects that must be synced to the music.
     private List<ISyncable> ObjsToSync = new List<ISyncable>();
     public static RhythmManager mainRM;
+    //Time of the music on the previous frame. Used to detect when the song loops.
     float lastTime = 0;
     AudioSource audSource;
     bool doingIntro = true;
@@ -21,6 +31,7 @@ public class RhythmManager : MonoBehaviour
     void Start()
     {
         mainRM = this;
+        //Finds every ISyncable object in the scene and adds it to the ObjsToSync list.
         var syncObjs = FindObjectsOfType<MonoBehaviour>().OfType<ISyncable>();
         foreach(ISyncable obj in syncObjs)
         {
@@ -46,6 +57,7 @@ public class RhythmManager : MonoBehaviour
         }
         //webText = "Note: This is the WebGL version of the game, so there may be some music sync issues. Switching tabs can cause some problems.";
     }
+    //Simply begins the audio.
     public void BeginPlaying()
     {
         audSource.Play();
@@ -55,13 +67,16 @@ public class RhythmManager : MonoBehaviour
     {
         checkForBeat(currentTrack);
     }
+    //Checks to see if a beat has occured since the last frame.
     void checkForBeat(MusicTrack MT)
     {
         if(!audSource.isPlaying){return;};
+        //If the song has looped, reset the timeOfLastBeat.
         if(audSource.time < lastTime)
         {
             timeOfLastBeat = -1/(MT.BPM/60);
         }
+        //Registers when a beat has occured.
         if(audSource.time + MT.offset - timeOfLastBeat >= 1/(MT.BPM/60))
         {
             timeOfLastBeat += 1/(MT.BPM/60);
@@ -69,8 +84,10 @@ public class RhythmManager : MonoBehaviour
         }
         lastTime = audSource.time;
     }
+    //When this method is called, it will contact every object in the ObjsToSync list and tells them that a beat has occured.
     void Beat()
     {
+        //If the intro is currently playing, don't call a beat yet.
         if(doingIntro)
         {
             if(beatsLeftInIntro <= 0)
@@ -81,11 +98,13 @@ public class RhythmManager : MonoBehaviour
             beatsLeftInIntro--;
             return;
         }
+        //Calls a beat on every object in ObjsToSync.
         foreach(ISyncable syncable in ObjsToSync)
         {
             syncable.OnSync();
         }
     }
+    //Switches the music track to the main looping track.
     void SwitchToMain()
     {
         doingIntro = false;
@@ -95,15 +114,22 @@ public class RhythmManager : MonoBehaviour
         audSource.Play();
         timeOfLastBeat = 0;
     }
+    //Adds a new ISyncable object to the list.
     public void AddSyncable(ISyncable syncable)
     {
         if(ObjsToSync.Contains(syncable)){return;}
         StartCoroutine(AddSyncableCoroutine(syncable));
     }
+    //Removes an ISyncable object from the list.
     public void RemoveSyncable(ISyncable syncable)
     {
         StartCoroutine(RemoveSyncableCoroutine(syncable));
     }
+    /*
+    The add/remove methods wait until the end of the frame to actually add the object.
+    This is because errors can occur if an object is added at the same time a beat is
+    currently being called on every object.
+    */
     IEnumerator AddSyncableCoroutine(ISyncable syncable)
     {
         yield return new WaitForEndOfFrame();
@@ -114,6 +140,11 @@ public class RhythmManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         ObjsToSync.Remove(syncable);
     }
+    /*
+    A beat called at the end of the frame instead of the start.
+    This is used to ensure that a beat is not missed when switching
+    to the main loop.
+    */
     IEnumerator DelayedBeat()
     {
         yield return new WaitForEndOfFrame();

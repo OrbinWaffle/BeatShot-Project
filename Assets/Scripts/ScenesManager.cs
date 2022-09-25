@@ -1,3 +1,6 @@
+
+//This script manages the different scenes.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
