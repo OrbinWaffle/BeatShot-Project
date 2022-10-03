@@ -31,16 +31,12 @@ public class PlayerInput : MonoBehaviour, ISyncable
     }
     public void OnSync()
     {
-        if(!isControlling){return;}
+        /*if(!isControlling){return;}
         beat--;
         if(beat <= 0)
         {
             if(!manualControl){PM.Attack();}
             beat = beatsPerShot;
-        }
-        /*if(Input.GetButtonDown("Fire1") || Input.GetButton("Fire1"))
-        {
-            PM.Attack();
         }*/
     }
     //Casts a ray from the mouse's screen position into the world, then sends this position to the Player Controller.
@@ -58,10 +54,18 @@ public class PlayerInput : MonoBehaviour, ISyncable
     //If the Fire button is pressed and we are given manual control, tell the Player Controller to attack.
     void OnAttack()
     {
-        if(!isControlling || !manualControl){return;}
-        if(Input.GetButton("Fire1"))
+        if(!isControlling){return;}
+        if(Input.GetButtonDown("Fire1"))
         {
-            PM.Attack();
+            int rhythmScore = RhythmManager.mainRM.RateTime(Time.time);
+            if(rhythmScore == 1)
+            {
+                PM.Attack();
+            }
+            else if(rhythmScore == 0)
+            {
+                PM.OnMiss();
+            }
         }
     }
 }

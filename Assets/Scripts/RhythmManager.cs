@@ -12,6 +12,8 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] private bool useIntro = true;
     [Tooltip("Whether or not the song begins playing immediately when the game starts running.")]
     [SerializeField] private bool startOnPlay = false;
+    [Tooltip("When the time difference between the input and the beat is less than this number, it is registered as a hit.")]
+    [SerializeField] private float rhythmLeeway = 0.1f;
     [Tooltip("Music track for the intro.")]
     [SerializeField] private MusicTrack musicTrackIntro;
     [Tooltip("Main looping music track.")]
@@ -23,8 +25,9 @@ public class RhythmManager : MonoBehaviour
     public static RhythmManager mainRM;
     //Time of the music on the previous frame. Used to detect when the song loops.
     float lastTime = 0;
+    float timeLoopBegan;
     AudioSource audSource;
-    bool doingIntro = true;
+    bool doingMain = false;
     MusicTrack currentTrack;
     int beatsLeftInIntro;
     //string webText;
@@ -44,7 +47,7 @@ public class RhythmManager : MonoBehaviour
         else
         {
             currentTrack = musicTrackMain;
-            doingIntro = false;
+            doingMain = true;
         }
         audSource = GetComponent<AudioSource>();
         audSource.clip = currentTrack.song;
@@ -75,6 +78,7 @@ public class RhythmManager : MonoBehaviour
         if(audSource.time < lastTime)
         {
             timeOfLastBeat = -1/(MT.BPM/60);
+            timeLoopBegan = Time.time;
         }
         //Registers when a beat has occured.
         if(audSource.time + MT.offset - timeOfLastBeat >= 1/(MT.BPM/60))
@@ -88,7 +92,7 @@ public class RhythmManager : MonoBehaviour
     void Beat()
     {
         //If the intro is currently playing, don't call a beat yet.
-        if(doingIntro)
+        if(!doingMain)
         {
             if(beatsLeftInIntro <= 0)
             {
@@ -107,12 +111,37 @@ public class RhythmManager : MonoBehaviour
     //Switches the music track to the main looping track.
     void SwitchToMain()
     {
-        doingIntro = false;
+        doingMain = true;
         currentTrack = musicTrackMain;
         audSource.clip = musicTrackMain.song;
         audSource.loop = true;
         audSource.Play();
         timeOfLastBeat = 0;
+        timeLoopBegan = Time.time;
+    }
+    //Takes a time as a float value and returns an int defining if it was on the beat.
+    //0 means hit, 1 means miss, -1 means N/A.
+    public int RateTime(float timeToRate)
+    {
+        if(!doingMain)
+        {
+            return(-1);
+        }
+        float lastBeatDiff = Mathf.Abs(timeToRate - GetRhythmTimeNormalized(timeOfLastBeat));
+        float nextBeatTime = GetNextBeat();
+        float nextBeatDiff = Mathf.Abs(nextBeatTime) - timeToRate;
+        float closestDiff = Mathf.Min(lastBeatDiff, nextBeatDiff);
+        Debug.Log(closestDiff==lastBeatDiff?"late":"early");
+        if(closestDiff < rhythmLeeway){return 1;}
+        else{return 0;}
+    }
+    public float GetRhythmTimeNormalized(float rhythmTime)
+    {
+        return(timeLoopBegan + rhythmTime);
+    }
+    public float GetNextBeat()
+    {
+        return(timeLoopBegan + (timeOfLastBeat + 1/(currentTrack.BPM/60)));
     }
     //Adds a new ISyncable object to the list.
     public void AddSyncable(ISyncable syncable)

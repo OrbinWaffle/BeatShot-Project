@@ -31,11 +31,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [Tooltip("The UI manager.")]
     [SerializeField] private UIManager UIM;
+    [Tooltip("Sound the player makes when shooting.")]
+    [SerializeField] private AudioClip shotSound;
+    [Tooltip("Funni sound to let the player know they are a failure and have awful rhythm.")]
+    [SerializeField] private AudioClip lmaoUrBadSound;
     private float timeOfLastShot;
+    AudioSource audSource;
     Rigidbody RB;
     void Start()
     {
         RB = GetComponent<Rigidbody>();
+        audSource = GetComponent<AudioSource>();
     }
     //Whenever this method is called, the rotator will rotate to face the Vector3 mousePos.
     public void Aim(Vector3 mousePos)
@@ -52,6 +58,8 @@ public class PlayerController : MonoBehaviour
         if(Time.time < timeOfLastShot + timeBetweenShots){return;}
         RB.AddForce(-rotator.forward * recoil, ForceMode.Impulse);
         Instantiate(shotParticle, firePoint.position, rotator.rotation);
+        audSource.clip = shotSound;
+        audSource.Play();
         //A loop to generate multiple projectiles if numOfShots > 1.
         for(int i = 0; i < numOfShots; i++)
         {
@@ -70,6 +78,12 @@ public class PlayerController : MonoBehaviour
             proj.GetComponent<SyncedAnimation>().OnSync();
         }
         timeOfLastShot = Time.time;
+    }
+    //What the player should do if they attempt to perform an off-beat action.
+    public void OnMiss()
+    {
+        audSource.clip = lmaoUrBadSound;
+        audSource.Play();
     }
     //Will call whenever the object this script is on touches anything.
     void OnCollisionEnter(Collision other)
