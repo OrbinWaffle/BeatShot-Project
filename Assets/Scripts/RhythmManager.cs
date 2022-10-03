@@ -131,7 +131,7 @@ public class RhythmManager : MonoBehaviour
         float nextBeatTime = GetNextBeat();
         float nextBeatDiff = Mathf.Abs(nextBeatTime) - timeToRate;
         float closestDiff = Mathf.Min(lastBeatDiff, nextBeatDiff);
-        Debug.Log(closestDiff==lastBeatDiff?"late":"early");
+        Debug.Log(closestDiff.ToString("F3") + " seconds " + (closestDiff==lastBeatDiff?"late":"early"));
         if(closestDiff < rhythmLeeway){return 1;}
         else{return 0;}
     }
