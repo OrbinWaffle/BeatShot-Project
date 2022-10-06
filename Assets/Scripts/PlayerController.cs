@@ -79,6 +79,11 @@ public class PlayerController : MonoBehaviour
         }
         timeOfLastShot = Time.time;
     }
+    public void OnDodge(Vector3 dir)
+    {
+        if(dir.normalized == Vector3.zero){dir = rotator.forward;}
+        RB.AddForce(dir.normalized * recoil, ForceMode.Impulse);
+    }
     //What the player should do if they attempt to perform an off-beat action.
     public void OnMiss()
     {
@@ -94,6 +99,7 @@ public class PlayerController : MonoBehaviour
             UIM.PlayerDied();
             Instantiate(deathParticle, transform.position, Quaternion.identity);
             //Removing self from the Rhythm Manager, so that it does not attempt to call on a null object.
+            RhythmManager.mainRM.LoadSnapshot();
             RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<PlayerInput>());
             RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<SyncedAnimation>());
             GetComponentInParent<PlayerInput>().isControlling = false;

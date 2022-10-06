@@ -19,6 +19,7 @@ public class PlayerInput : MonoBehaviour, ISyncable
     Plane Plane = new Plane(Vector3.up, 0);
     //Beat counter for beatsPerShot
     int beat = 1;
+    private bool usingAxis;
     void Start()
     {
         PM = GetComponentInChildren<PlayerController>();
@@ -28,6 +29,11 @@ public class PlayerInput : MonoBehaviour, ISyncable
     {
         OnMouse();
         OnAttack();
+        OnDodge();
+        if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+        {
+            usingAxis = false;
+        }
     }
     public void OnSync()
     {
@@ -51,7 +57,8 @@ public class PlayerInput : MonoBehaviour, ISyncable
             PM.Aim(mousePos);
         }
     }
-    //If the Fire button is pressed and we are given manual control, tell the Player Controller to attack.
+    //If the Fire button is pressed, request a rhythm evaluation from the Rhythm Manager.
+    //Send this evaluation to the player.
     void OnAttack()
     {
         if(!isControlling){return;}
@@ -61,6 +68,26 @@ public class PlayerInput : MonoBehaviour, ISyncable
             if(rhythmScore == 1)
             {
                 PM.Attack();
+            }
+            else if(rhythmScore == 0)
+            {
+                PM.OnMiss();
+            }
+        }
+    }
+    //If the dodge key is pressed, request a rhythm evaluation from the Rhythm Manager.
+    //Send this evaluation to the player.
+    void OnDodge()
+    {
+        if(!isControlling){return;}
+        if(!usingAxis && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
+        {
+            usingAxis = true;
+            int rhythmScore = RhythmManager.mainRM.RateTime(Time.time);
+            if(rhythmScore == 1)
+            {
+                Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+                PM.OnDodge(dir);
             }
             else if(rhythmScore == 0)
             {
