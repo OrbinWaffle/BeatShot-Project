@@ -4,7 +4,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using System.Linq;
 
 public class RhythmManager : MonoBehaviour
@@ -19,13 +18,6 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] private MusicTrack musicTrackIntro;
     [Tooltip("Main looping music track.")]
     [SerializeField] private MusicTrack musicTrackMain;
-    [Tooltip("Master audio mixer.")]
-    [SerializeField] private AudioMixer masterMixer;
-    [Tooltip("Speed of snapshot transitions.")]
-    [SerializeField] private float snapshotSpeed = 1f;
-    [Tooltip("Mixer snapshot that will play on death.")]
-    [SerializeField] private AudioMixerSnapshot deathSnapshot;
-    static AudioMixerSnapshot orgSnapShot;
     //Time that the last beat occured at.
     float timeOfLastBeat;
     //A list of objects that must be synced to the music.
@@ -39,10 +31,6 @@ public class RhythmManager : MonoBehaviour
     MusicTrack currentTrack;
     int beatsLeftInIntro;
     //string webText;
-    void Awake()
-    {
-        masterMixer.FindSnapshot("Default").TransitionTo(0f);
-    }
     void Start()
     {
         mainRM = this;
@@ -190,10 +178,6 @@ public class RhythmManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         Beat();
-    }
-    public void LoadSnapshot()
-    {
-        deathSnapshot.TransitionTo(snapshotSpeed);
     }
     /*void OnGUI()
     {
