@@ -46,12 +46,7 @@ public class RhythmManager : MonoBehaviour
     void Start()
     {
         mainRM = this;
-        //Finds every ISyncable object in the scene and adds it to the ObjsToSync list.
-        var syncObjs = FindObjectsOfType<MonoBehaviour>().OfType<ISyncable>();
-        foreach(ISyncable obj in syncObjs)
-        {
-            ObjsToSync.Add(obj);
-        }
+        FindAllSyncables();
         if(useIntro == true)
         {
             currentTrack = musicTrackIntro;
@@ -194,6 +189,15 @@ public class RhythmManager : MonoBehaviour
     public void LoadSnapshot()
     {
         deathSnapshot.TransitionTo(snapshotSpeed);
+    }
+    //Finds every ISyncable object in the scene and adds it to the ObjsToSync list.
+    void FindAllSyncables()
+    {
+        var syncObjs = FindObjectsOfType<MonoBehaviour>().OfType<ISyncable>();
+        foreach(ISyncable obj in syncObjs)
+        {
+            ObjsToSync.Add(obj);
+        }
     }
     /*void OnGUI()
     {

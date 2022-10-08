@@ -37,9 +37,10 @@ public class ProjectileController : MonoBehaviour, ISyncable
         //If we've exceeded our beatsAlive, destroy this object.
         if(beatsAlive <= 0)
         {
-            Destroy();
+            DeleteProjectile();
             return;
         }
+        beatsAlive--;
         beat--;
         //If we are on a movement beat, move.
         if(beat <= 0)
@@ -87,7 +88,6 @@ public class ProjectileController : MonoBehaviour, ISyncable
         move the projectile to follow these points.
         */
         StartCoroutine(DoMovement(points, snapSpeed*(reflections+1)));
-        beatsAlive--;
     }
     /*
     A coroutine that actually moves the projectile. It will lerp the projectile to the first point
@@ -126,7 +126,7 @@ public class ProjectileController : MonoBehaviour, ISyncable
         yield return null;
     }
     //Remove this object from the Rhythm Manager and then destroy it.
-    void Destroy()
+    void DeleteProjectile()
     {
         RhythmManager.mainRM.RemoveSyncable(this);
         RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<SyncedAnimation>());

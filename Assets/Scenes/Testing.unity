@@ -3047,7 +3047,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &803603621
 Transform:
   m_ObjectHideFlags: 0
@@ -6579,8 +6579,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useIntro: 1
   startOnPlay: 1
+  rhythmLeeway: 0.1
   musicTrackIntro: {fileID: 11400000, guid: 95cb027b6ae1e7841b14051f44b335f7, type: 2}
   musicTrackMain: {fileID: 11400000, guid: c2fe6142d54999648946ec1434675e00, type: 2}
+  masterMixer: {fileID: 24100000, guid: 4eada3d9da1f35149be7051e7438079c, type: 2}
+  snapshotSpeed: 1
+  deathSnapshot: {fileID: -6730062133933565932, guid: 4eada3d9da1f35149be7051e7438079c, type: 2}
 --- !u!4 &2045494348
 Transform:
   m_ObjectHideFlags: 0
