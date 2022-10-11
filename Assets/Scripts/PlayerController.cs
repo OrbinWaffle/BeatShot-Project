@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rotatorSpeed = 0f;
     [Tooltip("How far the player is pushed back with each shot.")]
     [SerializeField] private float recoil = 1f;
+    [Tooltip("How far the player moves when dodging.")]
+    [SerializeField] private float dodgeSpeed = 1f;
     [Tooltip("The minimum amount of time between shots. Only really has effect when manual control on PlayerInput is enabled.")]
     [SerializeField] private float timeBetweenShots = 0f;
     [Tooltip("The number of projectiles fired out with each shot. More projectiles will give a shotgun-like effect.")]
@@ -36,12 +38,14 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Funni sound to let the player know they are a failure and have awful rhythm.")]
     [SerializeField] private AudioClip lmaoUrBadSound;
     private float timeOfLastShot;
+    ParticleSystem PS;
     AudioSource audSource;
     Rigidbody RB;
     void Start()
     {
         RB = GetComponent<Rigidbody>();
         audSource = GetComponent<AudioSource>();
+        PS = GetComponent<ParticleSystem>();
     }
     //Whenever this method is called, the rotator will rotate to face the Vector3 mousePos.
     public void Aim(Vector3 mousePos)
@@ -82,7 +86,13 @@ public class PlayerController : MonoBehaviour
     public void OnDodge(Vector3 dir)
     {
         if(dir.normalized == Vector3.zero){dir = rotator.forward;}
-        RB.AddForce(dir.normalized * recoil, ForceMode.Impulse);
+        RB.AddForce(dir.normalized * dodgeSpeed, ForceMode.Impulse);
+        PS.Play();
+        Invoke("DisableParticle", .25f);
+    }
+    void DisableParticle()
+    {
+        PS.Stop();
     }
     //What the player should do if they attempt to perform an off-beat action.
     public void OnMiss()
