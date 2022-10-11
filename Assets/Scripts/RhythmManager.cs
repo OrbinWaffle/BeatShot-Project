@@ -15,6 +15,8 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] private bool startOnPlay = false;
     [Tooltip("When the time difference between the input and the beat is less than this number, it is registered as a hit.")]
     [SerializeField] private float rhythmLeeway = 0.1f;
+    [Tooltip("A measurement of the player's input lag. Used to adjust rhythm registration.")]
+    [SerializeField] private float latency = 0f;
     [Tooltip("Music track for the intro.")]
     [SerializeField] private MusicTrack musicTrackIntro;
     [Tooltip("Main looping music track.")]
@@ -128,19 +130,39 @@ public class RhythmManager : MonoBehaviour
     }
     //Takes a time as a float value and returns an int defining if it was on the beat.
     //0 means hit, 1 means miss, -1 means N/A.
-    public int RateTime(float timeToRate)
+    public void RateTime(float timeToRate, out int rating, out float time, out float trueTime)
     {
         if(!doingMain)
         {
-            return(-1);
+            rating = -1;
+            time = 0;
+            trueTime = 0;
+            return;
         }
-        float lastBeatDiff = Mathf.Abs(timeToRate - GetRhythmTimeNormalized(timeOfLastBeat));
+        float timeToRateAdjusted = timeToRate - latency;
+        float lastBeatDiff = timeToRateAdjusted - GetRhythmTimeNormalized(timeOfLastBeat);
         float nextBeatTime = GetNextBeat();
-        float nextBeatDiff = Mathf.Abs(nextBeatTime) - timeToRate;
-        float closestDiff = Mathf.Min(lastBeatDiff, nextBeatDiff);
-        Debug.Log(closestDiff.ToString("F3") + " seconds " + (closestDiff==lastBeatDiff?"late":"early"));
-        if(closestDiff < rhythmLeeway){return 1;}
-        else{return 0;}
+        float nextBeatDiff = timeToRateAdjusted - nextBeatTime;
+        Debug.Log(lastBeatDiff + "   " + nextBeatDiff);
+        float closestDiff = Mathf.Abs(lastBeatDiff) <= Mathf.Abs(nextBeatDiff) ? lastBeatDiff : nextBeatDiff;
+        Debug.Log(closestDiff.ToString("F3") + " seconds " + (closestDiff<=0?"early":"late"));
+        if(Mathf.Abs(closestDiff) < rhythmLeeway){rating = 1;}
+        else{rating = 0;}
+        time = closestDiff;
+        trueTime = closestDiff + latency;
+    }
+    // Override that does not include time or trueTime
+    public void RateTime(float timeToRate, out int rating)
+    {
+        float time;
+        float trueTime;
+        RateTime(timeToRate, out rating, out time, out trueTime);
+    }
+    // Override that does not include trueTIme.
+    public void RateTime(float timeToRate, out int rating, out float time)
+    {
+        float trueTime;
+        RateTime(timeToRate, out rating, out time, out trueTime);
     }
     public float GetRhythmTimeNormalized(float rhythmTime)
     {

@@ -311,7 +311,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useIntro: 1
   startOnPlay: 0
-  rhythmLeeway: 0.07
+  rhythmLeeway: 0.08
+  latency: 0.01
   musicTrackIntro: {fileID: 11400000, guid: 95cb027b6ae1e7841b14051f44b335f7, type: 2}
   musicTrackMain: {fileID: 11400000, guid: c2fe6142d54999648946ec1434675e00, type: 2}
   masterMixer: {fileID: 24100000, guid: 4eada3d9da1f35149be7051e7438079c, type: 2}
