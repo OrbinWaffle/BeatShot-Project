@@ -18,7 +18,10 @@ public class UIManager : MonoBehaviour, ISyncable
     [SerializeField] private GameObject startButton;
     [Tooltip("A screen displayed when the player dies.")]
     [SerializeField] private GameObject gameOver;
-    [SerializeField] private GameObject easyScene;
+    [SerializeField] private GameObject menuButton;
+    [SerializeField] private GameObject zeroScene;
+    [SerializeField] private GameObject easyButton;
+    [SerializeField] private GameObject mediumButton;
     bool playerIsAlive = true;
     public void OnSync()
     {
@@ -44,6 +47,15 @@ public class UIManager : MonoBehaviour, ISyncable
     {
         playerIsAlive = false;
         gameOver.SetActive(true);
-        easyScene.SetActive(true);
+        menuButton.SetActive(true);
+    }
+
+    public void switchMenu() 
+    {
+        gameOver.SetActive(false);
+        menuButton.SetActive(false);
+        zeroScene.SetActive(true);
+        easyButton.SetActive(true);
+        mediumButton.SetActive(true);
     }
 }

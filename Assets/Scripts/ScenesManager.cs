@@ -13,14 +13,16 @@ public class ScenesManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
     public void SwitchScene()
     {
         string clickedButtonName = EventSystem.current.currentSelectedGameObject.name;
         // Debug.Log("Name of button: " + clickedButtonName);
 
-        if (clickedButtonName.Equals("Easy"))
+        if (clickedButtonName.Equals("ZeroButton"))
+            SceneManager.LoadScene(0);
+        else if (clickedButtonName.Equals("EasyButton"))
             SceneManager.LoadScene(1);
-
+        else if (clickedButtonName.Equals("MediumButton"))
+            SceneManager.LoadScene(2);
     }
 }
