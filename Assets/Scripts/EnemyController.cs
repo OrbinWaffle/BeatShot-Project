@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, ISyncable
 {
+    [Tooltip("This enemy will move every beatsPerMove beats.")]
+    [SerializeField] private int beatsPerMove = 4;
     [SerializeField] private float force = 1f;
     [SerializeField] private float bounceForce = 1f;
     [SerializeField] private float joltTime = 1f;
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float minVelocity = .01f;
     [SerializeField] private float stickOut = .1f;
+    [SerializeField] private GameObject deathParticle;
     [SerializeField] private LayerMask LM;
     private int MAXTRIES = 10;
     private bool moving;
@@ -17,6 +20,7 @@ public class EnemyController : MonoBehaviour
     private Transform player;
     private Rigidbody RB;
     private SphereCollider COL;
+    int beat = 1;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -24,15 +28,21 @@ public class EnemyController : MonoBehaviour
         COL = GetComponent<SphereCollider>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnSync()
+    {
+        beat--;
+        if(beat <= 0)
+        {
+            beat = beatsPerMove;
+            DoMove();
+        }
+    }
+    void DoMove()
     {
         Vector3 playerVector = Vector3.Normalize(player.position - transform.position);
-        if(RB.velocity.magnitude < maxSpeed)
-        {
-            RB.AddForce(playerVector * force, ForceMode.Force);
-        }
-        if(RB.velocity.magnitude < minVelocity)
+        RB.velocity = Vector3.zero;
+        RB.AddForce(playerVector * force, ForceMode.Impulse);
+        /*if(RB.velocity.magnitude < minVelocity)
         {
             if(moving == true)
             {
@@ -48,7 +58,7 @@ public class EnemyController : MonoBehaviour
         else
         {
             moving = true;
-        }
+        }*/
     }
     
     void DoJolt()
@@ -77,5 +87,16 @@ public class EnemyController : MonoBehaviour
         }
 
         RB.AddForce(bounceVector * bounceForce, ForceMode.Impulse);
+    }
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.collider.tag == "Projectile")
+        {
+            Instantiate(deathParticle, transform.position, Quaternion.identity);
+            //Removing self from the Rhythm Manager, so that it does not attempt to call on a null object.
+            RhythmManager.mainRM.RemoveSyncable(this);
+            RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<SyncedAnimation>());
+            Destroy(this.gameObject);
+        }
     }
 }

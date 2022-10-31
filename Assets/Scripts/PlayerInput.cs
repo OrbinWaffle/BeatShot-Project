@@ -24,6 +24,7 @@ public class PlayerInput : MonoBehaviour, ISyncable
     {
         PM = GetComponentInChildren<PlayerController>();
         Cursor.visible = false;
+        curs = GameObject.FindGameObjectWithTag("Cursor").transform;
     }
     void Update()
     {

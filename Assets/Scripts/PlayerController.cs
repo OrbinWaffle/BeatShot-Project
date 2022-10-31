@@ -31,8 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform rotator;
     [Tooltip("The point at which the projectiles will be generated.")]
     [SerializeField] private Transform firePoint;
-    [Tooltip("The UI manager.")]
-    [SerializeField] private UIManager UIM;
+    private UIManager UIM;
     [Tooltip("Sound the player makes when shooting.")]
     [SerializeField] private AudioClip shotSound;
     [Tooltip("Funni sound to let the player know they are a failure and have awful rhythm.")]
@@ -46,6 +45,7 @@ public class PlayerController : MonoBehaviour
         RB = GetComponent<Rigidbody>();
         audSource = GetComponent<AudioSource>();
         PS = GetComponent<ParticleSystem>();
+        UIM = UIManager.mainUIM;
     }
     //Whenever this method is called, the rotator will rotate to face the Vector3 mousePos.
     public void Aim(Vector3 mousePos)
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision other)
     {
         //Will kill the player only if the object I collided with has the "Projectile" tag.
-        if(other.collider.tag == "Projectile" && !isInvincible)
+        if((other.collider.tag == "Projectile" || other.collider.tag == "Enemy") && !isInvincible)
         {
             UIM.PlayerDied();
             Instantiate(deathParticle, transform.position, Quaternion.identity);

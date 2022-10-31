@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     Vector3 velocity = Vector3.zero;
     void Start()
     {
+        targetObj = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
