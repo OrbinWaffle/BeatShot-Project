@@ -579,7 +579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useIntro: 1
   startOnPlay: 0
-  rhythmLeeway: 0.08
+  rhythmLeeway: 0.1
   latency: 0.01
   musicTrackIntro: {fileID: 11400000, guid: 95cb027b6ae1e7841b14051f44b335f7, type: 2}
   musicTrackMain: {fileID: 11400000, guid: c2fe6142d54999648946ec1434675e00, type: 2}
@@ -886,7 +886,7 @@ GameObject:
   - component: {fileID: 364129028}
   m_Layer: 5
   m_Name: Image
-  m_TagString: Untagged
+  m_TagString: Cursor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -981,6 +981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf1b18391f417849a0757a74a08590e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beatsPerAnim: 1
 --- !u!1 &402854876
 GameObject:
   m_ObjectHideFlags: 0
@@ -2031,6 +2032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf1b18391f417849a0757a74a08590e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beatsPerAnim: 1
 --- !u!95 &650505640
 Animator:
   serializedVersion: 4
@@ -3217,6 +3219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf1b18391f417849a0757a74a08590e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beatsPerAnim: 1
 --- !u!95 &1222001053
 Animator:
   serializedVersion: 4
@@ -3574,6 +3577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf1b18391f417849a0757a74a08590e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beatsPerAnim: 1
 --- !u!95 &1307038978
 Animator:
   serializedVersion: 4
@@ -3624,6 +3628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf1b18391f417849a0757a74a08590e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beatsPerAnim: 1
 --- !u!95 &1394010124
 Animator:
   serializedVersion: 4
@@ -4039,6 +4044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf1b18391f417849a0757a74a08590e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beatsPerAnim: 1
 --- !u!95 &1427004660
 Animator:
   serializedVersion: 4
@@ -4220,6 +4226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf1b18391f417849a0757a74a08590e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beatsPerAnim: 1
 --- !u!1 &1665796464
 GameObject:
   m_ObjectHideFlags: 0
