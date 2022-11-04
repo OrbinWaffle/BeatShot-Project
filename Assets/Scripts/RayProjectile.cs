@@ -6,6 +6,7 @@ public class RayProjectile : MonoBehaviour
 {
     LineRenderer lr;
     [SerializeField] float lifetime = 1f;
+    [SerializeField] LayerMask lm;
     // Start is called before the first frame update
     void Start()
     {

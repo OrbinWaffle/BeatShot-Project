@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour, ISyncable
     [SerializeField] private float stickOut = .1f;
     [SerializeField] private bool shoots = false;
     [SerializeField] private bool randomMovement = false;
+    [SerializeField] private bool spawnOnCenter = false;
     [SerializeField] private float sizeOfRay = 1f;
     [SerializeField] private float rotatorSpeed = 1f;
     [SerializeField] private GameObject deathParticle;
@@ -39,7 +40,8 @@ public class EnemyController : MonoBehaviour, ISyncable
     }
 
     void Update() {
-        RoatateTowardsPlayer();
+        if(shoots)
+            RoatateTowardsPlayer();
     }
 
     public void OnSync()
@@ -70,7 +72,13 @@ public class EnemyController : MonoBehaviour, ISyncable
 
     void doShot()
     {
-        GameObject proj = Instantiate(projectile, fireSpot.position, rotator.rotation);
+        GameObject proj;
+        if(spawnOnCenter) {
+            proj = Instantiate(projectile, rotator.position, rotator.rotation);
+        }
+        else {
+            proj = Instantiate(projectile, fireSpot.position, rotator.rotation);
+        }
         if(proj.GetComponent<ProjectileController>() != null) {
             RhythmManager.mainRM.AddSyncable(proj.GetComponent<ProjectileController>());
             proj.GetComponent<ProjectileController>().OnSync();
