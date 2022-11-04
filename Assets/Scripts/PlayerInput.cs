@@ -28,6 +28,8 @@ public class PlayerInput : MonoBehaviour, ISyncable
     void Update()
     {
         OnMouse();
+        if (PM == null)
+            return;
         OnAttack();
         OnDodge();
         if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
@@ -54,6 +56,8 @@ public class PlayerInput : MonoBehaviour, ISyncable
         if(Plane.Raycast(ray, out dist))
         {
             Vector3 mousePos = ray.GetPoint(dist);
+            if (PM == null)
+                return;
             PM.Aim(mousePos);
         }
     }
