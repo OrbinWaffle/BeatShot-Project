@@ -6,14 +6,23 @@ public class EnemyController : MonoBehaviour, ISyncable
 {
     [Tooltip("This enemy will move every beatsPerMove beats.")]
     [SerializeField] private int beatsPerMove = 4;
+    [SerializeField] private int beatsPerShot = 4;
     [SerializeField] private float force = 1f;
+    [SerializeField] private float recoilForce = 1f;
     [SerializeField] private float bounceForce = 1f;
     [SerializeField] private float joltTime = 1f;
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float minVelocity = .01f;
     [SerializeField] private float stickOut = .1f;
+    [SerializeField] private bool shoots = false;
+    [SerializeField] private bool randomMovement = false;
+    [SerializeField] private float sizeOfRay = 1f;
+    [SerializeField] private float rotatorSpeed = 1f;
     [SerializeField] private GameObject deathParticle;
     [SerializeField] private LayerMask LM;
+    [SerializeField] private Transform rotator;
+    [SerializeField] private Transform fireSpot;
+    [SerializeField] private GameObject projectile;
     private int MAXTRIES = 10;
     private bool moving;
     private float lastMovingTime;
@@ -21,6 +30,7 @@ public class EnemyController : MonoBehaviour, ISyncable
     private Rigidbody RB;
     private SphereCollider COL;
     int beat = 1;
+    int beatShot = 3;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -28,20 +38,60 @@ public class EnemyController : MonoBehaviour, ISyncable
         COL = GetComponent<SphereCollider>();
     }
 
+    void Update() {
+        RoatateTowardsPlayer();
+    }
+
     public void OnSync()
     {
         beat--;
+        beatShot--;
         if(beat <= 0)
         {
             beat = beatsPerMove;
             DoMove();
         }
+        if(!shoots) {
+            return;
+        }
+        if(beatShot <= 0)
+        {
+            beatShot = beatsPerShot;
+            doShot();
+        }
     }
+
+    void RoatateTowardsPlayer()
+    {
+        Vector3 direction = Vector3.Normalize(player.position - transform.position);
+        Quaternion lookRot = Quaternion.LookRotation(direction, Vector3.up);
+        rotator.rotation = Quaternion.Slerp(rotator.rotation, lookRot, rotatorSpeed * Time.deltaTime);
+    }
+
+    void doShot()
+    {
+        GameObject proj = Instantiate(projectile, fireSpot.position, rotator.rotation);
+        if(proj.GetComponent<ProjectileController>() != null) {
+            RhythmManager.mainRM.AddSyncable(proj.GetComponent<ProjectileController>());
+            proj.GetComponent<ProjectileController>().OnSync();
+        }
+        // RhythmManager.mainRM.AddSyncable(proj.GetComponent<SyncedAnimation>());
+        Vector3 recoil = Vector3.Normalize(transform.position - player.position);
+        RB.AddForce(recoil * (force * recoilForce), ForceMode.Impulse);
+    }
+
     void DoMove()
     {
-        Vector3 playerVector = Vector3.Normalize(player.position - transform.position);
+        Vector3 direction;
+        if(!randomMovement) {
+            direction = Vector3.Normalize(player.position - transform.position);
+        }
+        else {
+            Vector2 randCircle = Random.insideUnitCircle;
+            direction = new Vector3(randCircle.x, 0, randCircle.y);
+        }
         RB.velocity = Vector3.zero;
-        RB.AddForce(playerVector * force, ForceMode.Impulse);
+        RB.AddForce(direction * force, ForceMode.Impulse);
         /*if(RB.velocity.magnitude < minVelocity)
         {
             if(moving == true)
