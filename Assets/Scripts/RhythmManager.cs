@@ -27,6 +27,7 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] private float snapshotSpeed = 1f;
     [Tooltip("Mixer snapshot that will play on death.")]
     [SerializeField] private AudioMixerSnapshot deathSnapshot;
+    public bool isPlayerDead = false;
     static AudioMixerSnapshot orgSnapShot;
     //Time that the last beat occured at.
     float timeOfLastBeat;
@@ -213,8 +214,9 @@ public class RhythmManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         Beat();
     }
-    public void LoadSnapshot()
+    public void DeathNotification()
     {
+        isPlayerDead = true;
         deathSnapshot.TransitionTo(snapshotSpeed);
     }
     //Finds every ISyncable object in the scene and adds it to the ObjsToSync list.

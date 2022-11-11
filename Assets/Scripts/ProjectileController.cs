@@ -133,4 +133,17 @@ public class ProjectileController : MonoBehaviour, ISyncable
         Instantiate(particle, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.collider.tag == "Enemy")
+        {
+            other.gameObject.GetComponent<EnemyController>().OnDeath();
+            DeleteProjectile();
+        }
+        if(other.collider.tag == "Player")
+        {
+            other.gameObject.GetComponent<PlayerController>().OnDeath();
+            DeleteProjectile();
+        }
+    }
 }

@@ -108,24 +108,19 @@ public class PlayerController : MonoBehaviour
         audSource.clip = lmaoUrBadSound;
         audSource.Play();
     }
-    //Will call whenever the object this script is on touches anything.
-    void OnCollisionEnter(Collision other)
-    {
-        //Will kill the player only if the object I collided with has the "Projectile" tag.
-        if((other.collider.tag == "Projectile" || other.collider.tag == "Enemy") && !isInvincible)
-        {
-            OnDeath();
-        }
-    }
 
     public void OnDeath() {
-            UIM.PlayerDied();
-            Instantiate(deathParticle, transform.position, Quaternion.identity);
-            //Removing self from the Rhythm Manager, so that it does not attempt to call on a null object.
-            RhythmManager.mainRM.LoadSnapshot();
-            RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<PlayerInput>());
-            RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<SyncedAnimation>());
-            GetComponentInParent<PlayerInput>().isControlling = false;
-            this.gameObject.SetActive(false);
+        if(isInvincible)
+        {
+            return;
+        }
+        UIM.PlayerDied();
+        Instantiate(deathParticle, transform.position, Quaternion.identity);
+        //Removing self from the Rhythm Manager, so that it does not attempt to call on a null object.
+        RhythmManager.mainRM.DeathNotification();
+        RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<PlayerInput>());
+        RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<SyncedAnimation>());
+        GetComponentInParent<PlayerInput>().isControlling = false;
+        this.gameObject.SetActive(false);
     }
 }
