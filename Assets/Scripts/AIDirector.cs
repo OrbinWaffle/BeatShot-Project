@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AIDirector : MonoBehaviour, ISyncable
 {
+    [SerializeField] private bool isActive = true;
     [SerializeField] private SpawnInfo[] spawnInfos;
     [SerializeField] private Transform[] spawnZones;
     [SerializeField] private int spawnInterval = 4;
@@ -34,8 +35,12 @@ public class AIDirector : MonoBehaviour, ISyncable
 
     void Spawn()
     {
+        if(!isActive)
+        {
+            return;
+        }
         GameObject enemyToSpawn = spawnInfos[0].prefab;
-        float rand = Random.RandomRange(0f, 1f);
+        float rand = Random.Range(0f, 1f);
         float cumulativeChance = 0;
         foreach(SpawnInfo info in spawnInfos)
         {
