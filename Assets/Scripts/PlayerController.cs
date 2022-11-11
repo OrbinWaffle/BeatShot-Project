@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
         rotator.rotation = Quaternion.Slerp(rotator.rotation, lookRot, rotatorSpeed * Time.deltaTime);
     }
     //Whenever this method is called, the player will fire a shot.
-    public void Attack()
+    public void Attack(bool doSync)
     {
         //If it is too soon to fire a shot, don't
         if(Time.time < timeOfLastShot + timeBetweenShots){return;}
@@ -77,11 +77,19 @@ public class PlayerController : MonoBehaviour
             //Adding the projectiles to the Rhythm Manager, since they must be synced with the music.
             RhythmManager.mainRM.AddSyncable(proj.GetComponent<ProjectileController>());
             RhythmManager.mainRM.AddSyncable(proj.GetComponent<SyncedAnimation>());
-            //Calling an initial sync for this beat.
-            proj.GetComponent<ProjectileController>().OnSync();
-            proj.GetComponent<SyncedAnimation>().OnSync();
+            //Calling an initial sync for this beat, provided it was not called already.
+            if(doSync)
+            {
+                Debug.Log("CALLING INITIAL SYNC");
+                proj.GetComponent<ProjectileController>().OnSync();
+                proj.GetComponent<SyncedAnimation>().OnSync();
+            }
         }
         timeOfLastShot = Time.time;
+    }
+    public void Attack()
+    {
+        Attack(false);
     }
     public void OnDodge(Vector3 dir)
     {

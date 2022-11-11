@@ -68,10 +68,13 @@ public class PlayerInput : MonoBehaviour, ISyncable
         if(!isControlling){return;}
         if(Input.GetButtonDown("Fire1"))
         {
-            int rhythmScore = RhythmManager.mainRM.RateTime(Time.time);
+            int rhythmScore;
+            float time;
+            float trueTime;
+            RhythmManager.mainRM.RateTime(Time.time, out rhythmScore, out time, out trueTime);
             if(rhythmScore == 1)
             {
-                PM.Attack();
+                PM.Attack(trueTime >= 0);
             }
             else if(rhythmScore == 0)
             {
@@ -87,7 +90,8 @@ public class PlayerInput : MonoBehaviour, ISyncable
         if(!usingAxis && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
         {
             usingAxis = true;
-            int rhythmScore = RhythmManager.mainRM.RateTime(Time.time);
+            int rhythmScore;
+            RhythmManager.mainRM.RateTime(Time.time, out rhythmScore);
             if(rhythmScore == 1)
             {
                 Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));

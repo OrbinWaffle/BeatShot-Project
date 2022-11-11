@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelEasy.unity
     guid: c0d0742375a0a464fba44e8ac2f8eaaa
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LevelMedium.unity
     guid: 3c7671713cf594f4bafd01a2cf8ed98d
+  - enabled: 1
+    path: Assets/Scenes/Mediocre.unity
+    guid: 12b54b184cdf2384bb52544f14b7ec12
   m_configObjects: {}
