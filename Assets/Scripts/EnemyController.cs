@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour, ISyncable
     private SphereCollider COL;
     int beat = 1;
     int beatShot = 3;
-    void Start()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         RB = GetComponent<Rigidbody>();
@@ -148,13 +148,17 @@ public class EnemyController : MonoBehaviour, ISyncable
     }
     void OnCollisionEnter(Collision other)
     {
-        if(other.collider.tag == "Projectile")
+        if(other.collider.tag == "Player")
         {
-            Instantiate(deathParticle, transform.position, Quaternion.identity);
-            //Removing self from the Rhythm Manager, so that it does not attempt to call on a null object.
-            RhythmManager.mainRM.RemoveSyncable(this);
-            RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<SyncedAnimation>());
-            Destroy(this.gameObject);
+            other.gameObject.GetComponent<PlayerController>().OnDeath();
         }
+    }
+    public void OnDeath()
+    {
+        Instantiate(deathParticle, transform.position, Quaternion.identity);
+        //Removing self from the Rhythm Manager, so that it does not attempt to call on a null object.
+        RhythmManager.mainRM.RemoveSyncable(this);
+        RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<SyncedAnimation>());
+        Destroy(this.gameObject);
     }
 }
