@@ -22,7 +22,12 @@ public class UIManager : MonoBehaviour, ISyncable
     [SerializeField] private GameObject zeroScene;
     [SerializeField] private GameObject easyButton;
     [SerializeField] private GameObject mediumButton;
+    public static UIManager mainUIM;
     bool playerIsAlive = true;
+    void Awake()
+    {
+        mainUIM = this;
+    }
     public void OnSync()
     {
         if(initialBeatDelay > 1)

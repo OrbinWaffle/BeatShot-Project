@@ -35,6 +35,8 @@ public class RhythmManager : MonoBehaviour
     public static RhythmManager mainRM;
     //Time of the music on the previous frame. Used to detect when the song loops.
     float lastTime = 0;
+    //The BPM when the music play speed is taken into account.
+    float trueBPM = 0;
     float timeLoopBegan;
     AudioSource audSource;
     bool doingMain = false;
@@ -111,6 +113,9 @@ public class RhythmManager : MonoBehaviour
             beatsLeftInIntro--;
             return;
         }
+        float masterPitch;
+        masterMixer.GetFloat("MasterPitch", out masterPitch);
+        trueBPM = musicTrackMain.BPM * audSource.pitch * masterPitch;
         //Calls a beat on every object in ObjsToSync.
         foreach(ISyncable syncable in ObjsToSync)
         {
@@ -220,6 +225,10 @@ public class RhythmManager : MonoBehaviour
         {
             ObjsToSync.Add(obj);
         }
+    }
+    public float GetTrueBPM()
+    {
+        return trueBPM;
     }
     /*void OnGUI()
     {
