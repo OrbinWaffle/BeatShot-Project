@@ -31,8 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform rotator;
     [Tooltip("The point at which the projectiles will be generated.")]
     [SerializeField] private Transform firePoint;
-    [Tooltip("The UI manager.")]
-    [SerializeField] private UIManager UIM;
+    private UIManager UIM;
     [Tooltip("Sound the player makes when shooting.")]
     [SerializeField] private AudioClip shotSound;
     [Tooltip("Funni sound to let the player know they are a failure and have awful rhythm.")]
@@ -46,6 +45,7 @@ public class PlayerController : MonoBehaviour
         RB = GetComponent<Rigidbody>();
         audSource = GetComponent<AudioSource>();
         PS = GetComponent<ParticleSystem>();
+        UIM = UIManager.mainUIM;
     }
     //Whenever this method is called, the rotator will rotate to face the Vector3 mousePos.
     public void Aim(Vector3 mousePos)
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
         rotator.rotation = Quaternion.Slerp(rotator.rotation, lookRot, rotatorSpeed * Time.deltaTime);
     }
     //Whenever this method is called, the player will fire a shot.
-    public void Attack()
+    public void Attack(bool doSync)
     {
         //If it is too soon to fire a shot, don't
         if(Time.time < timeOfLastShot + timeBetweenShots){return;}
@@ -77,11 +77,19 @@ public class PlayerController : MonoBehaviour
             //Adding the projectiles to the Rhythm Manager, since they must be synced with the music.
             RhythmManager.mainRM.AddSyncable(proj.GetComponent<ProjectileController>());
             RhythmManager.mainRM.AddSyncable(proj.GetComponent<SyncedAnimation>());
-            //Calling an initial sync for this beat.
-            proj.GetComponent<ProjectileController>().OnSync();
-            proj.GetComponent<SyncedAnimation>().OnSync();
+            //Calling an initial sync for this beat, provided it was not called already.
+            if(doSync)
+            {
+                Debug.Log("CALLING INITIAL SYNC");
+                proj.GetComponent<ProjectileController>().OnSync();
+                proj.GetComponent<SyncedAnimation>().OnSync();
+            }
         }
         timeOfLastShot = Time.time;
+    }
+    public void Attack()
+    {
+        Attack(false);
     }
     public void OnDodge(Vector3 dir)
     {
@@ -100,20 +108,19 @@ public class PlayerController : MonoBehaviour
         audSource.clip = lmaoUrBadSound;
         audSource.Play();
     }
-    //Will call whenever the object this script is on touches anything.
-    void OnCollisionEnter(Collision other)
-    {
-        //Will kill the player only if the object I collided with has the "Projectile" tag.
-        if(other.collider.tag == "Projectile" && !isInvincible)
+
+    public void OnDeath() {
+        if(isInvincible)
         {
-            UIM.PlayerDied();
-            Instantiate(deathParticle, transform.position, Quaternion.identity);
-            //Removing self from the Rhythm Manager, so that it does not attempt to call on a null object.
-            RhythmManager.mainRM.LoadSnapshot();
-            RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<PlayerInput>());
-            RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<SyncedAnimation>());
-            GetComponentInParent<PlayerInput>().isControlling = false;
-            this.gameObject.SetActive(false);
+            return;
         }
+        UIM.PlayerDied();
+        Instantiate(deathParticle, transform.position, Quaternion.identity);
+        //Removing self from the Rhythm Manager, so that it does not attempt to call on a null object.
+        RhythmManager.mainRM.DeathNotification();
+        RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<PlayerInput>());
+        RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<SyncedAnimation>());
+        GetComponentInParent<PlayerInput>().isControlling = false;
+        this.gameObject.SetActive(false);
     }
 }

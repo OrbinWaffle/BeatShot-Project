@@ -7,13 +7,21 @@ using UnityEngine;
 
 public class SyncedAnimation : MonoBehaviour, ISyncable
 {
+    [SerializeField] private int beatsPerAnim = 1;
     Animator anim;
+    int beat = 1;
     void Awake()
     {
         anim = GetComponent<Animator>();
     }
     public void OnSync()
     {
-        anim.SetTrigger("Beat");
+        anim.speed = RhythmManager.mainRM.GetTrueBPM() / 120f;
+        beat--;
+        if(beat <= 0)
+        {
+            anim.SetTrigger("Beat");
+            beat = beatsPerAnim;
+        }
     }
 }

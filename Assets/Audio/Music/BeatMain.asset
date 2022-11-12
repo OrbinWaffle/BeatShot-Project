@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BeatMain
   m_EditorClassIdentifier: 
   song: {fileID: 8300000, guid: f27cb4a521b55c447a5461a861656bcf, type: 3}
-  BPM: 120
+  BPM: 60
   offset: 0
