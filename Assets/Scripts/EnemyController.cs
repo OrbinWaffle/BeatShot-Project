@@ -34,18 +34,24 @@ public class EnemyController : MonoBehaviour, ISyncable
     int beatShot = 3;
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject pl = GameObject.FindGameObjectWithTag("Player");
+        if(pl != null)
+        {
+            player = pl.transform;
+        }
         RB = GetComponent<Rigidbody>();
         COL = GetComponent<SphereCollider>();
     }
 
     void Update() {
+        if(RhythmManager.mainRM.isPlayerDead){return;}
         if(shoots)
             RoatateTowardsPlayer();
     }
 
     public void OnSync()
     {
+        if(RhythmManager.mainRM.isPlayerDead){return;}
         beat--;
         beatShot--;
         if(beat <= 0)

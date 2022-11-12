@@ -441,8 +441,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotatorSpeed: 10
-  recoil: 30
-  dodgeSpeed: 50
+  recoil: 50
+  dodgeSpeed: 70
   timeBetweenShots: 0.1
   numOfShots: 1
   spreadOfShots: 90

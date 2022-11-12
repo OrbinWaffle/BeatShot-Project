@@ -39,6 +39,7 @@ public class AIDirector : MonoBehaviour, ISyncable
         {
             return;
         }
+
         GameObject enemyToSpawn = spawnInfos[0].prefab;
         float rand = Random.Range(0f, 1f);
         float cumulativeChance = 0;
@@ -72,14 +73,14 @@ public class AIDirector : MonoBehaviour, ISyncable
         {
             spawnZone = tentativeSpawnZone;
         }
-        spawnPos = spawnZone.transform.position + new Vector3(Random.Range(-spawnZone.localScale.x/2, spawnZone.localScale.x/2), 0.5f, Random.Range(-spawnZone.localScale.z/2, spawnZone.localScale.z/2));
-        GameObject enemyInstance = Instantiate(enemyToSpawn, spawnPos, Quaternion.identity);
-        EnemyController EC = enemyInstance.GetComponentInChildren<EnemyController>();
-        RhythmManager.mainRM.AddSyncable(EC);
-        EC.OnSync();
-        SyncedAnimation SA = enemyInstance.GetComponentInChildren<SyncedAnimation>();
-        RhythmManager.mainRM.AddSyncable(SA);
-        SA.OnSync();
+        spawnPos = spawnZone.transform.position + new Vector3(Random.Range(-spawnZone.localScale.x/2, spawnZone.localScale.x/2), 0f, Random.Range(-spawnZone.localScale.z/2, spawnZone.localScale.z/2));
+        GameObject spawnedObj = Instantiate(enemyToSpawn, spawnPos, Quaternion.identity);
+        ISyncable[] syncables = spawnedObj.GetComponentsInChildren<ISyncable>();
+        foreach(ISyncable syncable in syncables)
+        {
+            RhythmManager.mainRM.AddSyncable(syncable);
+            syncable.OnSync();
+        }
     }
 }
 
