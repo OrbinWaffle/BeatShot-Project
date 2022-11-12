@@ -14,7 +14,7 @@ public class RhythmManager : MonoBehaviour
     [Tooltip("Whether or not the song begins playing immediately when the game starts running.")]
     [SerializeField] private bool startOnPlay = false;
     [Tooltip("When the time difference between the input and the beat is less than this number, it is registered as a hit.")]
-    [SerializeField] private float rhythmLeeway = 0.1f;
+    [SerializeField] public float rhythmLeeway = 0.1f;
     [Tooltip("A measurement of the player's input lag. Used to adjust rhythm registration.")]
     [SerializeField] private float latency = 0f;
     [Tooltip("Music track for the intro.")]

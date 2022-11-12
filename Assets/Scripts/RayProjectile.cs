@@ -11,6 +11,11 @@ public class RayProjectile : MonoBehaviour
     void Start()
     {
         lr = GetComponent<LineRenderer>();
+        Invoke("CastRay", RhythmManager.mainRM.rhythmLeeway);
+    }
+
+    void CastRay()
+    {
 
         RaycastHit hit;
         Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity);
