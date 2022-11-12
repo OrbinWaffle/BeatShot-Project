@@ -324,9 +324,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2247ea0aca9c6274ba890f4e90bde958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 1.5
+  distance: 2
   snapSpeed: 15
-  beatsAlive: 32
+  beatsAlive: 16
   beatsPerMove: 1
   particle: {fileID: 1569772984500554736, guid: 47d1adc66d5546e4cb59c1e4a231fc8b, type: 3}
   LM:
@@ -551,3 +551,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf1b18391f417849a0757a74a08590e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beatsPerAnim: 1
