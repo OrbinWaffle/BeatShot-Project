@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour, ISyncable
     [SerializeField] private float minVelocity = .01f;
     [SerializeField] private float stickOut = .1f;
     [SerializeField] private bool shoots = false;
+    [SerializeField] private bool doDelay = false;
     [SerializeField] private bool randomMovement = false;
     [SerializeField] private bool spawnOnCenter = false;
     [SerializeField] private float sizeOfRay = 1f;
@@ -23,7 +24,7 @@ public class EnemyController : MonoBehaviour, ISyncable
     [SerializeField] private LayerMask LM;
     [SerializeField] private Transform rotator;
     [SerializeField] private Transform fireSpot;
-    [SerializeField] private GameObject projectile;
+    [SerializeField] private GameObject[] projectiles;
     private int MAXTRIES = 10;
     private bool moving;
     private float lastMovingTime;
@@ -65,7 +66,12 @@ public class EnemyController : MonoBehaviour, ISyncable
         if(beatShot <= 0)
         {
             beatShot = beatsPerShot;
-            doShot();
+            if(doDelay) {
+                Invoke("doShot", RhythmManager.mainRM.rhythmLeeway);
+            }
+            else {
+                doShot();
+            }
         }
     }
 
@@ -78,17 +84,20 @@ public class EnemyController : MonoBehaviour, ISyncable
 
     void doShot()
     {
-        GameObject proj;
-        if(spawnOnCenter) {
-            proj = Instantiate(projectile, rotator.position, rotator.rotation);
+        foreach(GameObject projectile in projectiles) {
+            GameObject proj;
+            if(spawnOnCenter) {
+                proj = Instantiate(projectile, rotator.position, rotator.rotation);
+            }
+            else {
+                proj = Instantiate(projectile, fireSpot.position, rotator.rotation);
+            }
+            if(proj.GetComponent<ProjectileController>() != null) {
+                RhythmManager.mainRM.AddSyncable(proj.GetComponent<ProjectileController>());
+                proj.GetComponent<ProjectileController>().OnSync();
+            }
         }
-        else {
-            proj = Instantiate(projectile, fireSpot.position, rotator.rotation);
-        }
-        if(proj.GetComponent<ProjectileController>() != null) {
-            RhythmManager.mainRM.AddSyncable(proj.GetComponent<ProjectileController>());
-            proj.GetComponent<ProjectileController>().OnSync();
-        }
+
         // RhythmManager.mainRM.AddSyncable(proj.GetComponent<SyncedAnimation>());
         Vector3 recoil = Vector3.Normalize(transform.position - player.position);
         RB.AddForce(recoil * (force * recoilForce), ForceMode.Impulse);
