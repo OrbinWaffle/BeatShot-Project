@@ -8,10 +8,12 @@ public class RayProjectile : MonoBehaviour
     [SerializeField] float lifetime = 1f;
     [SerializeField] LayerMask lm;
     // Start is called before the first frame update
+    [SerializeField] GameObject particle;
+
     void Start()
     {
         lr = GetComponent<LineRenderer>();
-        Invoke("CastRay", RhythmManager.mainRM.rhythmLeeway);
+        CastRay();
     }
 
     void CastRay()
@@ -26,6 +28,9 @@ public class RayProjectile : MonoBehaviour
         if(hit.collider.gameObject.tag == "Player") {
             hit.collider.gameObject.GetComponent<PlayerController>().OnDeath();
         }
+
+        Quaternion particleRotation = Quaternion.LookRotation(hit.normal);
+        Instantiate(particle, hit.point, particleRotation);
 
         Invoke("Die", lifetime);
     }
