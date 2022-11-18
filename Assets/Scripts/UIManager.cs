@@ -1,7 +1,6 @@
 
 //This script manages the UI.
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,15 +17,21 @@ public class UIManager : MonoBehaviour, ISyncable
     [SerializeField] private GameObject startButton;
     [Tooltip("A screen displayed when the player dies.")]
     [SerializeField] private GameObject gameOver;
+    [SerializeField] private GameObject starParent;
+    [SerializeField] private GameObject wantedStar;
+    [SerializeField] private Vector3 starOffset;
+    [SerializeField] private int maxStars = 5;
+    private List<GameObject> starList;
     [SerializeField] private GameObject menuButton;
-    [SerializeField] private GameObject zeroScene;
-    [SerializeField] private GameObject easyButton;
-    [SerializeField] private GameObject mediumButton;
     public static UIManager mainUIM;
+    private Vector3 currStarPos;
     bool playerIsAlive = true;
     void Awake()
     {
         mainUIM = this;
+        starList = new List<GameObject>();
+        currStarPos = starParent.transform.position;
+        Debug.Log(currStarPos);
     }
     public void OnSync()
     {
@@ -54,13 +59,14 @@ public class UIManager : MonoBehaviour, ISyncable
         gameOver.SetActive(true);
         menuButton.SetActive(true);
     }
-
-    public void switchMenu() 
+    public void IncrementStars()
     {
-        gameOver.SetActive(false);
-        menuButton.SetActive(false);
-        zeroScene.SetActive(true);
-        easyButton.SetActive(true);
-        mediumButton.SetActive(true);
+        if(starList.Count >= maxStars)
+        {
+            return;
+        }
+        GameObject starInstance = Instantiate(wantedStar, currStarPos, starParent.transform.rotation, starParent.transform);
+        starList.Add(starInstance);
+        currStarPos += starOffset;
     }
 }
