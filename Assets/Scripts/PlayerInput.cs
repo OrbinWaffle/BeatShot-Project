@@ -33,6 +33,7 @@ public class PlayerInput : MonoBehaviour, ISyncable
             return;
         OnAttack();
         OnDodge();
+        OnSuicide();
         if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
         {
             usingAxis = false;
@@ -102,6 +103,15 @@ public class PlayerInput : MonoBehaviour, ISyncable
             {
                 PM.OnMiss();
             }
+        }
+    }
+    //If the die key is pressed, die.
+    void OnSuicide()
+    {
+        if(!isControlling){return;}
+        if(Input.GetButtonDown("Killbind"))
+        {
+            PM.OnDeath();
         }
     }
 }
