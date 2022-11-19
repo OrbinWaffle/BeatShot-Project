@@ -1,0 +1,3 @@
+easy 0
+medium 55
+hard 0

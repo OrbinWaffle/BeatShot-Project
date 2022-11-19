@@ -47,6 +47,10 @@ public class RhythmManager : MonoBehaviour
     void Awake()
     {
         masterMixer.FindSnapshot("Default").TransitionTo(0f);
+        DataWriter.resetValues();
+        DataWriter.writeScore("medium", "55");
+        DataWriter.writeScore("fake", "1");
+        Debug.Log(DataWriter.readScore("medium"));
     }
     void Start()
     {
