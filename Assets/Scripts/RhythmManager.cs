@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class RhythmManager : MonoBehaviour
 {
@@ -43,14 +44,12 @@ public class RhythmManager : MonoBehaviour
     bool doingMain = false;
     MusicTrack currentTrack;
     int beatsLeftInIntro;
-    //string webText;
+    [Tooltip("How many beats have passed since the game started.")]
+    public int beatsSurvived = 0;
     void Awake()
     {
         masterMixer.FindSnapshot("Default").TransitionTo(0f);
-        DataWriter.resetValues();
-        DataWriter.writeScore("medium", "55");
-        DataWriter.writeScore("fake", "1");
-        Debug.Log(DataWriter.readScore("medium"));
+        //DataWriter.resetValues();
     }
     void Start()
     {
@@ -117,6 +116,10 @@ public class RhythmManager : MonoBehaviour
             }
             beatsLeftInIntro--;
             return;
+        }
+        if(isPlayerDead == false)
+        {
+            RhythmManager.mainRM.beatsSurvived++;
         }
         float masterPitch;
         masterMixer.GetFloat("MasterPitch", out masterPitch);
@@ -222,6 +225,7 @@ public class RhythmManager : MonoBehaviour
     {
         isPlayerDead = true;
         deathSnapshot.TransitionTo(snapshotSpeed);
+        DataWriter.writeScore(SceneManager.GetActiveScene().name, beatsSurvived.ToString());
     }
     //Finds every ISyncable object in the scene and adds it to the ObjsToSync list.
     void FindAllSyncables()

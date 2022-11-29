@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DataWriter : MonoBehaviour
 {
-    private const string path = "Assets/Resources/test.txt";
+    private const string path = "Assets/Resources/scores.txt";
 
     public static void writeScore(string levelName, string value)
     {
@@ -64,7 +64,7 @@ public class DataWriter : MonoBehaviour
     public static void resetValues()
     {
         StreamWriter writer = new StreamWriter(path, false);
-        writer.Write("easy 0\nmedium 0\nhard 0");
+        writer.Write("Box 0\nSmiley 0\nCorridors 0");
         writer.Close();
     }
 }

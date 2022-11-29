@@ -9,8 +9,6 @@ public class UIManager : MonoBehaviour, ISyncable
 {
     [Tooltip("The amount of beats before the counter actaully begins counting.")]
     int initialBeatDelay = 0;
-    [Tooltip("How many beats have passed since the game started.")]
-    int beatsSurvived = 0;
     [Tooltip("A text object displaying the score.")]
     [SerializeField] private Text scoreText;
     [Tooltip("A button to begin the game.")]
@@ -41,11 +39,7 @@ public class UIManager : MonoBehaviour, ISyncable
             return;
         }
         //On each beat, if the player is alive, increment the beats survived and update the counter.
-        if(playerIsAlive == true)
-        {
-            beatsSurvived++;
-            scoreText.text = "" + beatsSurvived;
-        }
+        scoreText.text = "" + RhythmManager.mainRM.beatsSurvived;
     }
     //Disable the start button when the game begins.
     public void BeginPlaying()
