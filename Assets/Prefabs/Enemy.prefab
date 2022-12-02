@@ -203,7 +203,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 899
+  m_VersionIndex: 902
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -475,7 +475,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 893
+  m_VersionIndex: 896
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -599,16 +599,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beatsPerMove: 4
+  beatsPerShot: 4
   force: 5
+  recoilForce: 1
   bounceForce: 5
   joltTime: 1
   maxSpeed: 1
   minVelocity: 0.01
   stickOut: 0.1
-  deathParticle: {fileID: 1569772984500554736, guid: 47d1adc66d5546e4cb59c1e4a231fc8b, type: 3}
+  shoots: 0
+  doDelay: 0
+  randomMovement: 0
+  spawnOnCenter: 0
+  sizeOfRay: 1
+  rotatorSpeed: 1
+  deathParticle: {fileID: 1569772984500554736, guid: 27ab1f905a6c85c418d672bcbf6e913a, type: 3}
   LM:
     serializedVersion: 2
     m_Bits: 1
+  rotator: {fileID: 0}
+  fireSpot: {fileID: 0}
+  projectiles: []
 --- !u!33 &249139793705997866
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1164,7 +1175,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 884
+  m_VersionIndex: 887
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1436,7 +1447,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 890
+  m_VersionIndex: 893
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1708,7 +1719,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 881
+  m_VersionIndex: 884
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1980,7 +1991,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 887
+  m_VersionIndex: 890
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2252,7 +2263,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 896
+  m_VersionIndex: 899
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2563,7 +2574,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 878
+  m_VersionIndex: 881
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

@@ -17,11 +17,22 @@ public class SyncedAnimation : MonoBehaviour, ISyncable
     public void OnSync()
     {
         anim.speed = RhythmManager.mainRM.GetTrueBPM() / 120f;
-        beat--;
-        if(beat <= 0)
+        if(beatsPerAnim == -1)
         {
-            anim.SetTrigger("Beat");
-            beat = beatsPerAnim;
+            return;
+        }
+        try
+        {
+            beat--;
+            if(beat <= 0)
+            {
+                anim.SetTrigger("Beat");
+                beat = beatsPerAnim;
+            }
+        }
+        catch
+        {
+            Debug.Log("um im dead actually probably so like i can't do this");
         }
     }
 }

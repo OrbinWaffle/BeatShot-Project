@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class RhythmManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class RhythmManager : MonoBehaviour
     [Tooltip("Whether or not the song begins playing immediately when the game starts running.")]
     [SerializeField] private bool startOnPlay = false;
     [Tooltip("When the time difference between the input and the beat is less than this number, it is registered as a hit.")]
-    [SerializeField] private float rhythmLeeway = 0.1f;
+    [SerializeField] public float rhythmLeeway = 0.1f;
     [Tooltip("A measurement of the player's input lag. Used to adjust rhythm registration.")]
     [SerializeField] private float latency = 0f;
     [Tooltip("Music track for the intro.")]
@@ -43,10 +44,12 @@ public class RhythmManager : MonoBehaviour
     bool doingMain = false;
     MusicTrack currentTrack;
     int beatsLeftInIntro;
-    //string webText;
+    [Tooltip("How many beats have passed since the game started.")]
+    public int beatsSurvived = 0;
     void Awake()
     {
         masterMixer.FindSnapshot("Default").TransitionTo(0f);
+        //DataWriter.resetValues();
     }
     void Start()
     {
@@ -114,6 +117,10 @@ public class RhythmManager : MonoBehaviour
             beatsLeftInIntro--;
             return;
         }
+        if(isPlayerDead == false)
+        {
+            RhythmManager.mainRM.beatsSurvived++;
+        }
         float masterPitch;
         masterMixer.GetFloat("MasterPitch", out masterPitch);
         trueBPM = musicTrackMain.BPM * audSource.pitch * masterPitch;
@@ -149,9 +156,9 @@ public class RhythmManager : MonoBehaviour
         float lastBeatDiff = timeToRateAdjusted - GetRhythmTimeNormalized(timeOfLastBeat);
         float nextBeatTime = GetNextBeat();
         float nextBeatDiff = timeToRateAdjusted - nextBeatTime;
-        Debug.Log(lastBeatDiff + "   " + nextBeatDiff);
+        //Debug.Log(lastBeatDiff + "   " + nextBeatDiff);
         float closestDiff = Mathf.Abs(lastBeatDiff) <= Mathf.Abs(nextBeatDiff) ? lastBeatDiff : nextBeatDiff;
-        Debug.Log(closestDiff.ToString("F3") + " seconds " + (closestDiff<=0?"early":"late"));
+        //Debug.Log(closestDiff.ToString("F3") + " seconds " + (closestDiff<=0?"early":"late"));
         if(Mathf.Abs(closestDiff) < rhythmLeeway){rating = 1;}
         else{rating = 0;}
         time = closestDiff;
@@ -218,6 +225,7 @@ public class RhythmManager : MonoBehaviour
     {
         isPlayerDead = true;
         deathSnapshot.TransitionTo(snapshotSpeed);
+        DataWriter.writeScore(SceneManager.GetActiveScene().name, beatsSurvived.ToString());
     }
     //Finds every ISyncable object in the scene and adds it to the ObjsToSync list.
     void FindAllSyncables()

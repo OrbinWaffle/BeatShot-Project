@@ -5,10 +5,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, ISyncable
 {
     [Tooltip("How fast the player rotates to meet the cursor. Higher values = higher speed.")]
     [SerializeField] private float rotatorSpeed = 0f;
+    [Tooltip("The amount of beats for the dodge cooldown.")]
+    [SerializeField] private int dodgeCooldown = 1;
     [Tooltip("How far the player is pushed back with each shot.")]
     [SerializeField] private float recoil = 1f;
     [Tooltip("How far the player moves when dodging.")]
@@ -27,6 +29,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject shotParticle;
     [Tooltip("The particle effect that will be generated on death.")]
     [SerializeField] private GameObject deathParticle;
+    [Tooltip("The sound that will play on a dodge.")]
+    [SerializeField] private AudioClip dodgeSound;
     [Tooltip("The rotator object.")]
     [SerializeField] private Transform rotator;
     [Tooltip("The point at which the projectiles will be generated.")]
@@ -36,7 +40,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip shotSound;
     [Tooltip("Funni sound to let the player know they are a failure and have awful rhythm.")]
     [SerializeField] private AudioClip lmaoUrBadSound;
+    [SerializeField] private Animator occluderAnim;
     private float timeOfLastShot;
+    private int currentDodgeCooldown = 0;
     ParticleSystem PS;
     AudioSource audSource;
     Rigidbody RB;
@@ -46,6 +52,14 @@ public class PlayerController : MonoBehaviour
         audSource = GetComponent<AudioSource>();
         PS = GetComponent<ParticleSystem>();
         UIM = UIManager.mainUIM;
+    }
+    public void OnSync()
+    {
+        Debug.Log(currentDodgeCooldown);
+        if(currentDodgeCooldown > 0)
+        {
+            --currentDodgeCooldown;
+        }
     }
     //Whenever this method is called, the rotator will rotate to face the Vector3 mousePos.
     public void Aim(Vector3 mousePos)
@@ -91,11 +105,23 @@ public class PlayerController : MonoBehaviour
     {
         Attack(false);
     }
-    public void OnDodge(Vector3 dir)
+    public void OnDodge(Vector3 dir, bool doSync)
     {
+        if(currentDodgeCooldown > 0)
+        {
+            return;
+        }
+        currentDodgeCooldown = dodgeCooldown;
         if(dir.normalized == Vector3.zero){dir = rotator.forward;}
         RB.AddForce(dir.normalized * dodgeSpeed, ForceMode.Impulse);
         PS.Play();
+        audSource.clip = dodgeSound;
+        audSource.Play();
+        occluderAnim.SetTrigger("dodge");
+        if(doSync)
+        {
+            --currentDodgeCooldown;
+        }
         Invoke("DisableParticle", .25f);
     }
     void DisableParticle()
@@ -105,6 +131,7 @@ public class PlayerController : MonoBehaviour
     //What the player should do if they attempt to perform an off-beat action.
     public void OnMiss()
     {
+        CameraController.main.PlayMiss();
         audSource.clip = lmaoUrBadSound;
         audSource.Play();
     }
