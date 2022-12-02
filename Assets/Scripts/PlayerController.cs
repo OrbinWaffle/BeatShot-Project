@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour, ISyncable
     [SerializeField] private float rotatorSpeed = 0f;
     [Tooltip("The amount of beats for the dodge cooldown.")]
     [SerializeField] private int dodgeCooldown = 1;
+    [Tooltip("Length of dodge invincibility")]
+    [SerializeField] private float invulnTime = 0.5f;
     [Tooltip("How far the player is pushed back with each shot.")]
     [SerializeField] private float recoil = 1f;
     [Tooltip("How far the player moves when dodging.")]
@@ -111,6 +113,8 @@ public class PlayerController : MonoBehaviour, ISyncable
         {
             return;
         }
+        isInvincible = true;
+        Invoke("DisableInvuln", invulnTime);
         currentDodgeCooldown = dodgeCooldown;
         if(dir.normalized == Vector3.zero){dir = rotator.forward;}
         RB.AddForce(dir.normalized * dodgeSpeed, ForceMode.Impulse);
@@ -149,5 +153,9 @@ public class PlayerController : MonoBehaviour, ISyncable
         RhythmManager.mainRM.RemoveSyncable(gameObject.GetComponent<SyncedAnimation>());
         GetComponentInParent<PlayerInput>().isControlling = false;
         this.gameObject.SetActive(false);
+    }
+    public void DisableInvuln()
+    {
+        isInvincible = false;
     }
 }

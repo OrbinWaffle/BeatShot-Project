@@ -1350,10 +1350,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: cfd0fff40ede7de489e727324048652c, type: 3}
-    m_FontSize: 14
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -1376,7 +1376,11 @@ MonoBehaviour:
 
 
     Press any of the WASD keys on the beat to dodge in the
-    cardinal directions. This has a 4 beat cooldown.
+    cardinal directions.
+
+
+    You are fully invulnerable during the doge. It has
+    a 4 beat cooldown.
 
 
     Try not to die.'
