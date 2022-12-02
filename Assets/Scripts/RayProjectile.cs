@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RayProjectile : MonoBehaviour
 {
+    [SerializeField] private bool doDelay = false;
     LineRenderer lr;
     [SerializeField] float lifetime = 1f;
     [SerializeField] LayerMask lm;
@@ -13,12 +14,20 @@ public class RayProjectile : MonoBehaviour
     void Start()
     {
         lr = GetComponent<LineRenderer>();
-        CastRay();
+        lr.enabled = false;
+        if(doDelay)
+        {
+            Invoke("CastRay", RhythmManager.mainRM.rhythmLeeway);
+        }
+        else
+        {
+            CastRay();
+        }
     }
 
     void CastRay()
     {
-
+        lr.enabled = true;
         RaycastHit hit;
         Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity);
         Vector3[] a = new Vector3[2];

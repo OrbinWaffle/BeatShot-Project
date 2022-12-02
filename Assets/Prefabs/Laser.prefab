@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b353e55c5c45e5ab6250839935751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doDelay: 1
   lifetime: 1
   lm:
     serializedVersion: 2

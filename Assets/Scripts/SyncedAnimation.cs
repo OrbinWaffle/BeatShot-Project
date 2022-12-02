@@ -16,9 +16,13 @@ public class SyncedAnimation : MonoBehaviour, ISyncable
     }
     public void OnSync()
     {
+        anim.speed = RhythmManager.mainRM.GetTrueBPM() / 120f;
+        if(beatsPerAnim == -1)
+        {
+            return;
+        }
         try
         {
-            anim.speed = RhythmManager.mainRM.GetTrueBPM() / 120f;
             beat--;
             if(beat <= 0)
             {

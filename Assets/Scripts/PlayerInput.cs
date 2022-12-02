@@ -20,6 +20,7 @@ public class PlayerInput : MonoBehaviour, ISyncable
     //Beat counter for beatsPerShot
     int beat = 1;
     private bool usingAxis;
+    public bool canDodge;
     void Start()
     {
         PM = GetComponentInChildren<PlayerController>();
@@ -76,7 +77,7 @@ public class PlayerInput : MonoBehaviour, ISyncable
             RhythmManager.mainRM.RateTime(Time.time, out rhythmScore, out time, out trueTime);
             if(rhythmScore == 1)
             {
-                PM.Attack(trueTime >= 0);
+                PM.Attack(time >= 0);
             }
             else if(rhythmScore == 0)
             {
@@ -93,11 +94,12 @@ public class PlayerInput : MonoBehaviour, ISyncable
         {
             usingAxis = true;
             int rhythmScore;
-            RhythmManager.mainRM.RateTime(Time.time, out rhythmScore);
+            float time;
+            RhythmManager.mainRM.RateTime(Time.time, out rhythmScore, out time);
             if(rhythmScore == 1)
             {
                 Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-                PM.OnDodge(dir);
+                PM.OnDodge(dir, time >= 0);
             }
             else if(rhythmScore == 0)
             {

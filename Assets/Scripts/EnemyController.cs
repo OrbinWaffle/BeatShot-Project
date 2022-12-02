@@ -15,7 +15,6 @@ public class EnemyController : MonoBehaviour, ISyncable
     [SerializeField] private float minVelocity = .01f;
     [SerializeField] private float stickOut = .1f;
     [SerializeField] private bool shoots = false;
-    [SerializeField] private bool doDelay = false;
     [SerializeField] private bool randomMovement = false;
     [SerializeField] private bool spawnOnCenter = false;
     [SerializeField] private float sizeOfRay = 1f;
@@ -66,12 +65,7 @@ public class EnemyController : MonoBehaviour, ISyncable
         if(beatShot <= 0)
         {
             beatShot = beatsPerShot;
-            if(doDelay) {
-                Invoke("doShot", RhythmManager.mainRM.rhythmLeeway);
-            }
-            else {
-                doShot();
-            }
+            doShot();
         }
     }
 

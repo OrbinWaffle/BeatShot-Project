@@ -15,21 +15,14 @@ public class UIManager : MonoBehaviour, ISyncable
     [SerializeField] private GameObject startButton;
     [Tooltip("A screen displayed when the player dies.")]
     [SerializeField] private GameObject gameOver;
-    [SerializeField] private GameObject starParent;
-    [SerializeField] private GameObject wantedStar;
-    [SerializeField] private Vector3 starOffset;
-    [SerializeField] private int maxStars = 5;
-    private List<GameObject> starList;
+    [SerializeField] private GameObject[] stars;
     [SerializeField] private GameObject menuButton;
     public static UIManager mainUIM;
-    private Vector3 currStarPos;
+    private int currStar = 0;
     bool playerIsAlive = true;
     void Awake()
     {
         mainUIM = this;
-        starList = new List<GameObject>();
-        currStarPos = starParent.transform.position;
-        Debug.Log(currStarPos);
     }
     public void OnSync()
     {
@@ -55,12 +48,11 @@ public class UIManager : MonoBehaviour, ISyncable
     }
     public void IncrementStars()
     {
-        if(starList.Count >= maxStars)
+        if(currStar > stars.Length)
         {
             return;
         }
-        GameObject starInstance = Instantiate(wantedStar, currStarPos, starParent.transform.rotation, starParent.transform);
-        starList.Add(starInstance);
-        currStarPos += starOffset;
+        stars[currStar].SetActive(true);
+        ++currStar;
     }
 }
