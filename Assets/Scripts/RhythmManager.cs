@@ -225,11 +225,11 @@ public class RhythmManager : MonoBehaviour
     {
         isPlayerDead = true;
         deathSnapshot.TransitionTo(snapshotSpeed);
-        int currScore = int.Parse(DataWriter.readScore(SceneManager.GetActiveScene().name));
+        int currScore = DataWriter.readScore(SceneManager.GetActiveScene().name);
         Debug.Log(currScore);
         if(beatsSurvived > currScore)
         {
-            DataWriter.writeScore(SceneManager.GetActiveScene().name, beatsSurvived.ToString());
+            DataWriter.writeScore(SceneManager.GetActiveScene().name, beatsSurvived);
         }
     }
     //Finds every ISyncable object in the scene and adds it to the ObjsToSync list.
