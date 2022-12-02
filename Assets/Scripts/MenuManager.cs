@@ -21,8 +21,8 @@ public class MenuManager : MonoBehaviour
     }
     void UpdateScores()
     {
-        boxScore.text = "High Score: " + DataWriter.readScore("Box");
-        smileScore.text = "High Score: " + DataWriter.readScore("Smiley");
-        corScore.text = "High Score: " + DataWriter.readScore("Corridors");
+        // boxScore.text = "High Score: " + DataWriter.readScore("Box");
+        // smileScore.text = "High Score: " + DataWriter.readScore("Smiley");
+        // corScore.text = "High Score: " + DataWriter.readScore("Corridors");
     }
 }
